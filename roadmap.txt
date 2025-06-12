@@ -1,0 +1,74 @@
+Prices:
+
+Standard voices
+(sku:9D01-5995-B545)
+0 to 4 million characters
+US$0.000004 per character (US$4 per 1 million characters)
+
+WaveNet voices
+(sku:FEBD-04B6-769B)
+0 to 1 million characters
+US$0.000016 per character (US$16 per 1 million characters)
+
+Neural2 voices
+(sku:FEBD-04B6-769B)
+0 to 1 million characters
+US$0.000016 per character (US$16 per 1 million character)
+
+Polyglot (Preview) voices
+(sku:FEBD-04B6-769B)
+0 to 1million characters
+US$0.000016 per character (US$16 per 1 million characters)
+
+Chirp 3: HD voices
+(sku:F977-2280-6F1B)
+0 to 1 million characters
+US$0.00003 per character (US$30 per 1 million characters)
+
+Studio voices
+(sku:84AB-48C0-F9C3)
+0 to 1 million characters
+US$0.00016 per character (US$160 per 1 million characters)
+
+Instant Custom Voice
+(sku:A247-37D7-C094)
+US$0.00006 per character (US$60 per 1 million characters)
+
+=================================================
+
+Idea:
+    - the idea is to auto detect supported websites (Reddit, Youtube, ...), and depending on the site take the main post and comments
+        or take just the comments
+    - the user can customise what types of content will read outloud
+
+
+=================================================
+
+Tier:
+    - given 100 users, and the free first 4M characters. we can give around 40.000 chars 
+    - we can charge x2 or x1.5 the original price for all the voices based on the original google pricing
+    - to manage the different pricing for the different voices we can create tiers or use points system, where $ = in app points 
+    - for the voice we can show snippets of audio to showcase each voice
+
+
+=================================================
+
+Support:
+    - at first we would support Reddit and Youtube content, the user can select what types can be audio generated
+    - we need to auto-detect the content on the page with respect to its type, and in case of reddit wen can add only the first comments 
+        or comments + the top upvoted reply.
+    - after we might support news websites like NewYork Times and the like
+
+=================================================
+
+The how:
+    - to auto detect content with type, we would need to access the Dom of the current page (might need app prevelage)
+    - we might need a store.js to save the audio generate and also the content of the pages (LocalStorage)
+    - we might also consider not only streaming audio but saving a copy to reduce frequent calls and data usage, we might set a period for audio
+    - we also need to detect when the dom have changed and update the list of readable content
+    - all communications with the google API will be through our own server, the server will check user's credit and do updates the credit
+    - after each call, we will store audio on the server side although for less period than the client's LocalStorage, depending on the cost
+     
+
+
+
