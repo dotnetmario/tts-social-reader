@@ -1,2 +1,2 @@
 # tts-social-reader
-TTS extension that reads posts/comments/articles on supported sites
+TTS is a chrome extension that reads posts/comments/articles on supported sites
