@@ -2,11 +2,12 @@
 
 import './utils/global.js';
 import './utils/events.js';
-import Content from './utils/view.js';
+import View from './utils/view.js';
 
 
 
-Content.renderFirstContent();
+View.renderFirstContent();
+
 
 
 

@@ -1,23 +1,19 @@
-// await renderFirstContent();
 import Auth from "./auth";
 
-
-const Content = {
+const View = {
     /**
      * renders the first splash content
      * @returns renders the f
      */
     async renderFirstContent() {
-        const loggedin = await Auth.is_user_authenticated();
-
-        // console.log(loggedin, Auth.retreiveAuthToken());
+        const loggedin = await Auth.isUserAuthenticated();
 
         if (!loggedin) {
-            await Content.displayContent('login');
+            await View.displayContent('login');
             return;
         }
 
-        await Content.displayContent('home');
+        await View.displayContent('home');
     },
 
     /**
@@ -31,8 +27,6 @@ const Content = {
             // Fetch the HTML file
             const response = await fetch(`../pages/${page}.html`);
 
-            console.log({response, path: `../pages/${page}.html`});
-
             // Check if the request was successful
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
@@ -45,13 +39,14 @@ const Content = {
             const parser = new DOMParser();
             const doc = parser.parseFromString(text, 'text/html');
 
-            console.log(doc);
-
             // Extract the desired content from the parsed HTML
             const content = doc.body;//getElementById('ttsoc-content').innerHTML; // Adjust the selector as needed
 
             // Insert the content into the target div
             $(document).find(container).html(content);
+
+            // scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
 
             return content;
         } catch (error) {
@@ -59,18 +54,22 @@ const Content = {
         }
     },
 
-    displayButtonLoadingStatus(class_name) {
-        let loading_html = `<div class="spinner-border ttsoc-loadingstatus mx-2" style="width: 1em; height: 1em;" role="status"></div>`;
+    async displayLodingSpinner(targetClass) {
+        const spinnerHTML = `<div class="spinner-border ttsoc-loadingstatus mx-2 my-5" style="width: 5em; height: 5em;" role="status"></div>`;
 
-        $(document).find(`button.${class_name}`).prepend(loading_html);
-        $(document).find(`button.${class_name}`).addClass('disabled');
+        $(document).find(`div.${targetClass}`).html(spinnerHTML);
     },
 
-    removeButtonLoadingStatus(class_name) {
-        $(document).find(`button.${class_name}`).find(`div.ttsoc-loadingstatus`).remove();
-        $(document).find(`button.${class_name}`).removeClass('disabled');
+    async displayHTMLByClass(targetClass, HTML) {
+        $(document).find(`div.${targetClass}`).html(HTML);
+    },
+
+    displayUnsupportedSiteMessage(targetClass) {
+        const html = `<p class="fs-2 my-5 text-danger">Site is not supported</p>`;
+
+        $(document).find(`div.${targetClass}`).html(html);
     }
 }
 
 
-export default Content;
+export default View;

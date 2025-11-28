@@ -1,4 +1,5 @@
 import Defines from "./defines";
+import Storage from "./storage";
 
 const Auth = {
     /**
@@ -12,6 +13,7 @@ const Auth = {
         if (!response.ok && response.status === 401) {
             // displayContent('login');
             // storeAuthToken('');
+            // ... display error message if something is wrong
             return false;
         }
 
@@ -27,7 +29,7 @@ const Auth = {
     async performlogin(email, pass) {
         const creds = JSON.stringify({ email: email, password: pass });
 
-        const response = await fetch(`${Defines.base_uri}/login`, {
+        const response = await fetch(`${Defines.BASE_URL}/login`, {
             headers: { 'Content-Type': 'application/json' },
             method: 'POST',
             body: creds
@@ -54,7 +56,7 @@ const Auth = {
      * @param {string} token 
      */
     async storeAuthToken(token) {
-        localStorage.setItem('ttsocAuthToken', token);
+        await Storage.storeContent('ttsocAuthToken', token);
     },
 
     /**
@@ -62,7 +64,7 @@ const Auth = {
      * @returns Auth token
      */
     async retreiveAuthToken() {
-        const ttsocAuthToken = localStorage.getItem('ttsocAuthToken');
+        const ttsocAuthToken = await Storage.getContent('ttsocAuthToken');
 
         return ttsocAuthToken !== null ? ttsocAuthToken : '';
     },
@@ -71,7 +73,7 @@ const Auth = {
      * check if user is connected
      * @returns bool
      */
-    async is_user_authenticated() {
+    async isUserAuthenticated() {
         const token = await Auth.retreiveAuthToken();
 
         return token !== undefined && token.length > 0;
