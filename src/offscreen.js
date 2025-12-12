@@ -1,5 +1,7 @@
+// main elements that plays the audio track
 const audio = document.getElementById("ttsoc-audio-palyer");
 
+// this translates the messages comming from audio playback controls into actions 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     switch (msg.action) {
         case "load":
@@ -35,6 +37,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     return true;
 });
 
+// sends a status update of the audio track each 200 ms
 setInterval(() => {
     chrome.runtime.sendMessage({
         action: "audioPlaybackUpdate",

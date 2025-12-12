@@ -2,12 +2,28 @@ import View from "./view";
 import Utils from "./utils";
 
 const Reddit = {
+    /**
+     * returns an identifier name for the website, required in the Backend
+     * @returns {string} site name
+     */
+    getName() {
+        return 'reddit';
+    },
+
+    /**
+     * returns the current active tab
+     * @returns {object} active tab
+     */
     async getTab() {
         const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
         return tab;
     },
 
+    /**
+     * return the active tab's page HTML
+     * @returns {string}
+     */
     async getHTML() {
         const tab = await this.getTab();
 
@@ -21,22 +37,39 @@ const Reddit = {
         return results[0].result;
     },
 
+    /**
+     * returns a clean trimmed element inner text 
+     * @param {documentElement} el 
+     * @returns {string}
+     */
     async cleanText(el) {
         return el?.innerText?.trim() || "";
     },
 
+    /**
+     * retunrs the post title
+     * @returns {string}
+     */
     async getPostTitle() {
         const htmlContent = await this.getHTML();
 
         return $(htmlContent).find('h1[id*="post-title"]').first().text().trim();
     },
 
+    /**
+     * retunrs the post author
+     * @returns {string}
+     */
     async getPostAuthor() {
         const htmlContent = await this.getHTML();
 
         return $(htmlContent).find('shreddit-post').first().attr('author').trim();
     },
 
+    /**
+     * retunrs the post karma
+     * @returns {string}
+     */
     async getPostKarma() {
         const htmlContent = await this.getHTML();
         const karma = $(htmlContent).find('shreddit-post').first().attr('score');
@@ -45,12 +78,24 @@ const Reddit = {
         // return $(htmlContent).find('shreddit-post').first().find(`faceplate-number[number="${karma}"]`).first().text().trim();
     },
 
+    /**
+     * retunrs the post content
+     * @returns {string}
+     */
     async getPostContent() {
         const htmlContent = await this.getHTML();
 
         return $(htmlContent).find('div[id*="post-rtjson-content"]').first().text().trim();
     },
 
+    /**
+     * returns a list of top comments for the post with their replies,
+     * note that not all post's comments are processed, only the ones visible to the user (loded in the page)
+     * ignores comments made by moderators, cuz they're gay
+     * 
+     * @param {int} max max number of comments to be processed, -1 to return all the comments
+     * @returns {array} comments and replies
+     */
     async getTopComments(max = -1) {
         const htmlContent = await this.getHTML();
         const commentsBlocks = $(htmlContent).find('shreddit-comment[depth="0"]');
@@ -103,6 +148,10 @@ const Reddit = {
         return commentsAndReplies;
     },
 
+    /**
+     * returns an object containing all of the page contents
+     * @returns {object} page content
+     */
     async getPageContent() {
         return {
             author: await this.getPostAuthor(),
@@ -113,6 +162,11 @@ const Reddit = {
         };
     },
 
+    /**
+     * displays the content extracted from the page into a redable format
+     * @param {object} content content of page
+     * @returns 
+     */
     async generateContentHTML(content) {
         const author = content.author;
         const post = content.postContent;
@@ -162,6 +216,12 @@ const Reddit = {
     },
 
 
+    /**
+     * builds a final object, based on what the user has selected from the list of contents
+     * @param {object} content content of the page
+     * @param {array[string]} selectedContentIds list of the selected comments and replies by the user
+     * @returns {object}
+     */
     buildSelectedContent(content, selectedContentIds = []) {
         let ttsContent = {};
 

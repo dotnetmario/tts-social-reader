@@ -6,10 +6,11 @@ import View from './utils/view.js';
 
 
 
+// render the first content
 View.renderFirstContent();
 
 
 
 
-
+// yo yo
 console.log('yooo');

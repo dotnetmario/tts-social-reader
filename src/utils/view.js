@@ -2,8 +2,9 @@ import Auth from "./auth";
 
 const View = {
     /**
-     * renders the first splash content
-     * @returns renders the f
+     * renders the first splash content, either the login page 
+     * or the home page if the user is already authenticated
+     * @returns 
      */
     async renderFirstContent() {
         const loggedin = await Auth.isUserAuthenticated();
@@ -17,7 +18,7 @@ const View = {
     },
 
     /**
-     * prints a file content inside the main div
+     * prints an HTML file content inside the main div
      * @param {string} page 
      * @param {string} container 
      * @returns string HTML content
@@ -54,16 +55,29 @@ const View = {
         }
     },
 
-    async displayLodingSpinner(targetClass) {
+    /**
+     * displays a lodign spinner inside a container
+     * @param {string} targetClass 
+     */
+    displayLodingSpinner(targetClass) {
         const spinnerHTML = `<div class="spinner-border ttsoc-loadingstatus mx-2 my-5" style="width: 5em; height: 5em;" role="status"></div>`;
 
         $(document).find(`div.${targetClass}`).html(spinnerHTML);
     },
 
-    async displayHTMLByClass(targetClass, HTML) {
+    /**
+     * parses html content inside a container
+     * @param {string} targetClass 
+     * @param {string} HTML 
+     */
+    displayHTMLByClass(targetClass, HTML) {
         $(document).find(`div.${targetClass}`).html(HTML);
     },
 
+    /**
+     * displays the message "Site is not supported" inside a container
+     * @param {string} targetClass 
+     */
     displayUnsupportedSiteMessage(targetClass) {
         const html = `<p class="fs-2 my-5 text-danger">Site is not supported</p>`;
 

@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "tts-social-reader",
+    "name": "NovaVoice",
     "version": "1.0",
-    "description": "TTS extension that reads posts/comments/articles on supported sites",
+    "description": "NovaVoice is an extension that reads posts/comments/articles and content on supported sites",
     "permissions": [
         "storage",
         "activeTab",

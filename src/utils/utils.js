@@ -4,11 +4,17 @@ import Storage from "./storage.js";
 import View from "./view.js";
 
 const Utils = {
+    /**
+     * formats text into a human readable format
+     * eg: 12345 karma => 12.4k karma
+     * @param {string} text 
+     * @returns {string}
+     */
     formatHumanNumbers(text) {
         if (typeof text !== 'string') {
-            // Maybe it’s a number directly (e.g. 12332)
+            // maybe it’s a number directly (e.g. 12332)
             if (typeof text === 'number') text = text.toString();
-            else return ''; // or return text, depending on what you want
+            else return ''; // or return text
         }
         // extract numeric part from a string like "12332 likes"
         const numberMatch = text.match(/\d+/);
@@ -44,10 +50,21 @@ const Utils = {
         return text;
     },
 
+    /**
+     * encodes text to be stored in data attributes of html elements
+     * eg: "
+     * @param {string} text 
+     * @returns {string}
+     */
     encodeTextContent(text) {
         return encodeURIComponent(text);
     },
 
+    /**
+     * decodes encoded text
+     * @param {string} text 
+     * @returns {string}
+     */
     decodeTextContent(text) {
         return decodeURIComponent(text);
     },
@@ -55,7 +72,7 @@ const Utils = {
     /**
      * check if the website is supported
      * @param {string} url 
-     * @returns 
+     * @returns {bool}
      */
     isSiteSupported(url) {
         const hostname = new URL(url).hostname.toLowerCase();
@@ -70,7 +87,7 @@ const Utils = {
     },
 
     /**
-     * loads the site module dynamically based from the url
+     * loads the site module dynamically based on the url
      * @param {string} url 
      * @returns 
      */
@@ -103,19 +120,25 @@ const Utils = {
         const url = tab.url;
         const isSiteSupported = this.isSiteSupported(url);
 
+        // check if the website is supported
         if (isSiteSupported === false) {
             return;
         }
 
+        // load the site module
         const siteModule = await this.getSiteModule(url);
 
         if (!siteModule) {
             return;
         }
 
+        // get content of the site
         const siteContent = await siteModule.getPageContent();
-        // save content
+
+        // save content to local storage
         await Storage.storeContent(url, siteContent);
+
+        // generate readable html to be displayed
         const html = await siteModule.generateContentHTML(siteContent);
 
         return html;
@@ -129,7 +152,7 @@ const Utils = {
      */
     async displaySiteContent(targetClass) {
         // display loading spinner
-        await View.displayLodingSpinner(targetClass);
+        View.displayLodingSpinner(targetClass);
 
         // get the whole page content
         const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -140,19 +163,21 @@ const Utils = {
             return;
         }
 
+        // get html of the site content 
         const content = await this.extractContentFromSite();
 
-        await View.displayHTMLByClass(targetClass, content);
+        // display the html in the desired placeholder element
+        View.displayHTMLByClass(targetClass, content);
     },
 
     /**
-     * loads page content from store 
+     * loads page content from local storage
      * @param {string} targetClass 
      * @returns 
      */
     async loadSiteContent(targetClass) {
         // display loading spinner
-        await View.displayLodingSpinner(targetClass);
+        View.displayLodingSpinner(targetClass);
 
         // get the whole page content
         const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -164,6 +189,7 @@ const Utils = {
         }
 
         const siteModule = await this.getSiteModule(tab.url);
+        // get site content from local storage
         const siteContent = await Storage.getContent(tab.url);
 
         // site's content is not saved
@@ -175,13 +201,14 @@ const Utils = {
         // generate html content
         const content = await siteModule.generateContentHTML(siteContent);
         // paste the html content
-        await View.displayHTMLByClass(targetClass, content);
+        View.displayHTMLByClass(targetClass, content);
         // check is the page has an audio link key saved
+        // user might have already generated audio content
         const hasAudioContent = await this.hasAudioContent(tab.url);
 
         // if the page has a generated audio content
         // we load the audio, only if its not loaded 
-        // check if the offscreen document is not loaded
+        // we check if the offscreen document is not loaded
         if (hasAudioContent !== false) {
             // display audio controls
             const exists = await chrome.offscreen.hasDocument();
@@ -197,6 +224,9 @@ const Utils = {
      * cheks if the page has generated audio content
      * if so we display load the audio and we display 
      * the audio controls
+     * 
+     * @param {string} url 
+     * @returns {string}
      */
     async hasAudioContent(url) {
         const content = await Storage.getContent(url);
@@ -214,6 +244,9 @@ const Utils = {
 
     /**
      * runs a callback function when an element is loaded 
+     * @param {string} selector 
+     * @param {callback} callback 
+     * @returns 
      */
     onElementReady(selector, callback) {
         const el = document.querySelector(selector);
@@ -233,6 +266,34 @@ const Utils = {
         });
 
         observer.observe(document.body, { childList: true, subtree: true });
+    },
+
+    /**
+     * save user's settings
+     * @param {string} key 
+     * @param {any} value 
+     */
+    async saveSettings(key, value) {
+        await Storage.appendContent('settings', key, value);
+    },
+
+    /**
+     * response checker, checks each API call response to see if the user is still authenticated
+     * if not, delete the Auth key and redirect the user to the login page
+     * @param {*} response API reponse
+     */
+    async checkAuthenticationStatus(response) {
+        if (undefined === response) {
+            return;
+        }
+
+        // user un-authenticated
+        if (response.status === 401 && response.statusText === "Unauthorized") {
+            await Storage.removeContent('ttsocAuthToken');
+
+            // redirect to login page
+            await View.renderFirstContent();
+        }
     }
 }
 
