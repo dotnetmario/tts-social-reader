@@ -1,5 +1,4 @@
-import View from "./view";
-import Utils from "./utils";
+import Utils from "../utils";
 
 const Reddit = {
     /**

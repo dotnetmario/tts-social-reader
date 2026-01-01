@@ -8,7 +8,17 @@ const Defines = {
 
     // supported websites with their module
     SUPPORTED_SITES: {
-        'www.reddit.com': `./reddit.js`
+        'reddit.com'                : `./sites/reddit.js`,
+        'bbc.com'                   : `./sites/bbc.js`,
+        'bbc.co.uk'                 : `./sites/bbcuk.js`,
+        'cnn.com'                   : `./sites/cnn.js`,
+        'nytimes.com'               : `./sites/nytimes.js`,
+        'theguardian.com'           : `./sites/theguardian.js`,
+        'foxnews.com'               : `./sites/foxnews.js`,
+        'foxbusiness.com'           : `./sites/foxnews.js`,
+        'dailymail.co.uk'           : `./sites/dailymail.js`,
+        'dailymail.co.uk'           : `./sites/dailymail.js`,
+        'yahoo.com'                 : `./sites/yahoo.js`
     },
 
     // error messages

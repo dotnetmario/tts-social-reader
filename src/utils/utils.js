@@ -2,6 +2,7 @@ import AudioPlayback from "./audioplayback.js";
 import Defines from "./defines";
 import Storage from "./storage.js";
 import View from "./view.js";
+import psl from "psl";
 
 const Utils = {
     /**
@@ -75,15 +76,33 @@ const Utils = {
      * @returns {bool}
      */
     isSiteSupported(url) {
-        const hostname = new URL(url).hostname.toLowerCase();
+        const baseDomain = this.getSiteBaseDomain(url);
         const supportedSites = Defines.SUPPORTED_SITES;
-        const match = Object.keys(supportedSites).find(domain => hostname == domain);
 
-        if (!match) {
-            return false;
-        }
+        return baseDomain in supportedSites;
+    },
 
-        return true;
+    /**
+     * uses the package PSL : https://www.npmjs.com/package/psl
+     * to determine the domain name of the website
+     * some websites like bbc.com have other domains like : bbc.co.uk
+     * this method simplifies the process
+     * 
+     * @param {string} url 
+     * @returns 
+     */
+    getSiteBaseDomain(url) {
+        const hostname = new URL(url).hostname.toLowerCase();
+        const parsed = psl.parse(hostname);
+
+        return parsed.domain;
+    },
+
+    getSiteSubDomain(url) {
+        const hostname = new URL(url).hostname.toLowerCase();
+        const parsed = psl.parse(hostname);
+
+        return parsed.subdomain;
     },
 
     /**
@@ -93,16 +112,60 @@ const Utils = {
      */
     async getSiteModule(url) {
         const isSiteSupported = this.isSiteSupported(url);
-        const hostname = new URL(url).hostname.toLowerCase();
+        const domain = this.getSiteBaseDomain(url);
+        const subdomain = this.getSiteSubDomain(url);
 
         if (isSiteSupported === false) {
             return null;
         }
 
-        switch (hostname) {
-            case 'www.reddit.com':
-                const { default: Reddit } = await import('./reddit.js');
+        switch (domain) {
+            case 'reddit.com':
+                const { default: Reddit } = await import('./sites/reddit.js');
                 return Reddit;
+            case 'bbc.com':
+                const { default: Bbc } = await import('./sites/bbc.js');
+                return Bbc;
+            case 'bbc.co.uk.com':
+                const { default: Bbcuk } = await import('./sites/bbcuk.js');
+                return Bbcuk;
+            case 'cnn.com':
+                const { default: Cnn } = await import('./sites/cnn.js');
+                return Cnn;
+            case 'nytimes.com':
+                const { default: Nytimes } = await import('./sites/nytimes.js');
+                return Nytimes;
+            case 'theguardian.com':
+                const { default: Theguardian } = await import('./sites/theguardian.js');
+                return Theguardian;
+            case 'foxnews.com':
+            case 'foxbusiness.com':
+                const { default: Foxnews } = await import('./sites/foxnews.js');
+                return Foxnews;
+            case 'dailymail.co.uk':
+                const { default: Dailymail } = await import('./sites/dailymail.js');
+                return Dailymail;
+            case 'yahoo.com':
+                if (subdomain === 'finance') {
+                    const { default: Yahoofinance } = await import('./sites/yahoofinance.js');
+                    return Yahoofinance;
+                }
+                if (subdomain === 'sports') {
+                    const { default: Yahoosports } = await import('./sites/yahoosports.js');
+                    return Yahoosports;
+                }
+                if (subdomain === 'health' || subdomain === 'shopping') {
+                    const { default: Yahoosports } = await import('./sites/yahoohealth.js');
+                    return Yahoosports;
+                }
+                if (subdomain === 'autos' || subdomain === 'tech') {
+                    const { default: Yahooautos } = await import('./sites/yahooautos.js');
+                    return Yahooautos;
+                }
+
+                const { default: Yahoo } = await import('./sites/yahoo.js');
+                return Yahoo;
+
 
             default:
                 break;
