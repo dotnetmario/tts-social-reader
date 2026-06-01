@@ -235,6 +235,7 @@ const Utils = {
 
     /**
      * loads page content from local storage
+     * or generates the content
      * @param {string} targetClass 
      * @returns 
      */

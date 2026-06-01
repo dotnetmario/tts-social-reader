@@ -24,6 +24,8 @@ const Foxnews = {
     async getHTML() {
         const tab = await this.getTab();
 
+        console.log(tab);
+
         const results = await chrome.scripting.executeScript({
             target: { tabId: tab.id },
             func: () => {
@@ -58,13 +60,58 @@ const Foxnews = {
 
         let paragraphs = '';
 
-        $(htmlContent).find('div.article-body')
-            .find('p').each((idx, p) => {
-                let text = $(p).text();
-                paragraphs += `<p>${text}</p>`;
-            });
+        const resource = await this.getUrlResource();
+        console.log(`resource : ${resource}`);
+
+        if (resource !== 'live-news') {
+            $(htmlContent).find('div.article-body')
+                .find('p').each((idx, p) => {
+                    let text = $(p).text();
+                    paragraphs += `<p>${text}</p>`;
+                });
+        } else {
+            let text = $(htmlContent).find('div.liveblog-content')
+                .find('div.sidebar-content').first()
+                .find('.title').text();
+
+            let sidebarTitle = `<p>${text}</p>`;
+            
+            
+            let sidebarText = '';
+            $(htmlContent).find('div.liveblog-content')
+                .find('div.sidebar-content').first()
+                .find('div.content li').each((idx, li) => {
+                    let text = $(li).text();
+                    sidebarText += `<p>${text}</p>`;
+                });
+
+            let articles = '';
+            $(htmlContent).find('div.main-content div.article-items article')
+                .each((idx, art) => {
+                    let title = $(art).find('.title').text();
+                    articles += `<h2>${title}</h2>`;
+
+                    $(art).find('div.article-item-content div.article-item-body p')
+                        .each((idx2, p) => {
+                            let text = $(p).text();
+                            articles += `<p>${text}</p>`;
+                        });
+                });
+            
+            // combine the extracted content
+            paragraphs = sidebarTitle + sidebarText + articles;
+        }
 
         return paragraphs;
+    },
+
+    async getUrlResource() {
+        const tab = await this.getTab();
+        const url = new URL(tab.url);
+
+        const resource = url.pathname.split('/').filter(Boolean)[0];
+
+        return resource;
     },
 
     /**

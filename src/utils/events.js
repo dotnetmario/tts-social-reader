@@ -116,14 +116,21 @@ $(function () {
      * on what content the user has selected for audio generation
      */
     $(document).on('click', '#ttsoc-generate-audio', async function () {
+
+
+        // return;
         $(this).find('#ttsoc-generate-audio-spinner').removeClass('d-none');
         $(this).addClass('disabled');
 
         try {
             const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
             const url = tab.url;
-
             const isSiteSupported = Utils.isSiteSupported(url);
+            
+            
+            // const url = 'https://www.bbc.co.uk/news/articles/cpvd81470v1o';
+            // console.log({isSiteSupported, tab});
+            // return;
             // display error message if site is not supported
             if (isSiteSupported === false) {
                 Logger.displayNotification('error', 'Site is not supported');
@@ -136,7 +143,7 @@ $(function () {
             const selectedContentIds = [];
             $(document).find('input.ttsoc-send-content:checked').each((idx, ele) => {
                 selectedContentIds.push($(ele).attr('id'));
-            })
+            });
 
             // load site module dynamically based on the URL
             const siteModule = await Utils.getSiteModule(url);
@@ -144,6 +151,12 @@ $(function () {
 
             // send call to generate content audio 
             const site = siteModule.getName();
+            console.log({
+                'site': site,
+                'content': content,
+                'ttsContent': ttsContent,
+            });
+            return;
             // API call to generate the audio
             const response = await Api.generateAudio(ttsContent, site);
 
