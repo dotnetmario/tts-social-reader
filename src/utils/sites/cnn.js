@@ -1,3 +1,6 @@
+import Utils from "../utils";
+
+
 const Cnn = {
     /**
      * returns an identifier name for the website, required in the Backend
@@ -51,14 +54,48 @@ const Cnn = {
 
     async getPostContent() {
         const htmlContent = await this.getHTML();
+        const tab = await this.getTab();
+        const subdomain = Utils.getSiteSubDomain(tab.url);
 
         let paragraphs = '';
-        $(htmlContent).find('article').find('div.article__content').each((idx, ele) => {
-            $(ele).find('[data-editable="text"]').each((idx2, p) => {
-                let text = $(p).text();
-                paragraphs += `<p>${text}</p>`;
+
+        if (subdomain !== 'edition') {
+            $(htmlContent).find('article').find('div.article__content').each((idx, ele) => {
+                $(ele).find('[data-editable="text"]').each((idx2, p) => {
+                    let text = $(p).text();
+                    paragraphs += `<p>${text}</p>`;
+                });
             });
-        });
+        } else {
+            let title = $(htmlContent).find('article').first().find('div.live-story__spotlight')
+                .find('.live-story-post__headline').text();
+            title = `<h2>${title}</h2>`;
+
+
+            let content = '';
+            $(htmlContent).find('article').first().find('div.live-story__spotlight')
+                .find('.live-story-post__body p').each((idx, p) => {
+                    let text = $(p).text();
+                    content += `<p>${text}</p>`;
+                });
+
+
+            let articles = '';
+            $(htmlContent).find('article').first().find('div.live-story__items')
+                .find('article').each((idx, art) => {
+                    // articles += '<p>' + $(art).text() + '</p>';
+                    let art_title = '<h2>' + $(art).find('h2').text() + '</h2>';
+                    let art_content = '';
+                    $(art).find('p, li').each((idx2, p) => {
+                        art_content += '<p>' + $(p).text() + '</p>';
+                    });
+
+                    articles += art_title + art_content;
+                });
+
+            paragraphs = title + content + articles;
+
+        }
 
         return paragraphs;
     },

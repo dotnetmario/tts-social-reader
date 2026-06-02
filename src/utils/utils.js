@@ -105,6 +105,12 @@ const Utils = {
         return parsed.subdomain;
     },
 
+    async getUrlResource(url) {
+        const resource = url.pathname.split('/').filter(Boolean)[0];
+
+        return resource;
+    },
+
     /**
      * loads the site module dynamically based on the url
      * @param {string} url 

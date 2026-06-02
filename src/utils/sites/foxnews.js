@@ -1,3 +1,5 @@
+import Utils from "../utils";
+
 const Foxnews = {
     /**
      * returns an identifier name for the website, required in the Backend
@@ -23,8 +25,6 @@ const Foxnews = {
      */
     async getHTML() {
         const tab = await this.getTab();
-
-        console.log(tab);
 
         const results = await chrome.scripting.executeScript({
             target: { tabId: tab.id },
@@ -57,11 +57,10 @@ const Foxnews = {
 
     async getPostContent() {
         const htmlContent = await this.getHTML();
+        const tab = await this.getTab();
+        const resource = Utils.getUrlResource(tab.url);
 
         let paragraphs = '';
-
-        const resource = await this.getUrlResource();
-        console.log(`resource : ${resource}`);
 
         if (resource !== 'live-news') {
             $(htmlContent).find('div.article-body')
@@ -75,8 +74,8 @@ const Foxnews = {
                 .find('.title').text();
 
             let sidebarTitle = `<p>${text}</p>`;
-            
-            
+
+
             let sidebarText = '';
             $(htmlContent).find('div.liveblog-content')
                 .find('div.sidebar-content').first()
@@ -97,7 +96,7 @@ const Foxnews = {
                             articles += `<p>${text}</p>`;
                         });
                 });
-            
+
             // combine the extracted content
             paragraphs = sidebarTitle + sidebarText + articles;
         }

@@ -17,7 +17,7 @@ const Storage = {
      * @param {any} data 
      */
     async storeContent(key, data) {
-        console.log('storing content: ', { [key]: data });
+        // console.log('storing content: ', { [key]: data });
         await chrome.storage.local.set({ [key]: data });
     },
 

@@ -126,11 +126,7 @@ $(function () {
             const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
             const url = tab.url;
             const isSiteSupported = Utils.isSiteSupported(url);
-            
-            
-            // const url = 'https://www.bbc.co.uk/news/articles/cpvd81470v1o';
-            // console.log({isSiteSupported, tab});
-            // return;
+
             // display error message if site is not supported
             if (isSiteSupported === false) {
                 Logger.displayNotification('error', 'Site is not supported');
