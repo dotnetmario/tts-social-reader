@@ -1,0 +1,355 @@
+:root {
+    --primary: #5282c9;
+    --secondary: #6baa58;
+
+    --gradient-angle: 60deg;
+    --primary-stop: 10%;
+    --secondary-stop: 100%;
+
+    --hero-gradient: linear-gradient(var(--gradient-angle),
+            var(--primary) 0%,
+            var(--primary) var(--primary-stop),
+            var(--secondary) var(--secondary-stop));
+
+    --ttsoc-percentage: 0%;
+}
+
+
+
+/* 
+====================================================================================
+====================================================================================
+=================================== NAVBAR =========================================
+====================================================================================
+====================================================================================
+*/
+
+.tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px 14px;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all .25s ease;
+}
+
+.tab.active {
+    background: white;
+    background: var(--bs-warning);
+}
+
+.nav-full .tab.active {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.18);
+}
+
+.tab.active:hover {
+    background: var(--bs-warning) !important;
+}
+
+
+.nav-segmented {
+    display: flex;
+    gap: 6px;
+    padding: 8px;
+    background: var(--hero-gradient);
+    box-shadow: 0px 10px 15px 5px rgba(0, 0, 0, 0.18) !important;
+    border-radius: 0px 0px 3px 3px;
+}
+
+.nav-full .tab:hover {
+    background: rgba(13, 110, 253, .12);
+    transform: translateY(-2px);
+    box-shadow: 0 0px 10px 10px rgba(0, 0, 0, 0.18);
+}
+
+.nav-full {
+    box-shadow: 0 6px 14px rgba(0, 0, 0, .08);
+}
+
+.nav-shadow-only {
+    box-shadow: 0 6px 14px rgba(0, 0, 0, .08);
+}
+
+.nav-shadow-only .tab {
+    background: transparent;
+}
+
+.nav-shadow-only .tab.active {
+    box-shadow: 0 4px 10px rgba(13, 110, 253, .15);
+}
+
+.nav-shadow-only .tab:hover {
+    transform: none;
+}
+
+
+/* 
+====================================================================================
+====================================================================================
+=================================== BUTTONS ========================================
+====================================================================================
+====================================================================================
+*/
+
+
+.cta {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn-dna2 {
+    border: none;
+    border-radius: 999px;
+
+    padding: 12px 20px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+        background-color 300ms ease;
+}
+
+/* primary button uses theme variable */
+.btn-primary-dna {
+    background: white;
+    color: var(--primary);
+
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .15);
+}
+
+.btn-primary-dna:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, .92);
+}
+
+/* secondary glass button */
+.btn-soft {
+    background: rgba(255, 255, 255, .18);
+    color: white;
+
+    backdrop-filter: blur(10px);
+}
+
+.btn-soft:hover {
+    background: rgba(255, 255, 255, .25);
+    transform: scale(1.05);
+}
+
+.btn-disabled:hover {
+    transform: none;
+}
+
+/* 
+====================================================================================
+====================================================================================
+================================== ACCORDION =======================================
+====================================================================================
+====================================================================================
+*/
+
+.style4 .accordion-button {
+    background: white;
+    border-left: 5px solid transparent;
+    transition: .25s;
+}
+
+.style4 .accordion-button:not(.collapsed) {
+    /* border-left-color: var(--primary); */
+    border-left-color: var(--bs-primary);
+}
+
+.style4 .accordion-body {
+    border-left: 2px solid rgba(13, 110, 253, .15);
+    margin-left: 18px;
+}
+
+.accordion {
+    --bs-accordion-border-width: 0;
+    --bs-accordion-bg: transparent;
+}
+
+.accordion-item {
+    border: none;
+    background: none;
+    margin-bottom: 12px;
+}
+
+.acc-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.acc-title {
+    flex: 1;
+}
+
+.acc-title strong {
+    display: block;
+}
+
+/* 
+====================================================================================
+====================================================================================
+==================================== CARDS =========================================
+====================================================================================
+====================================================================================
+*/
+/* Custom styles for demonstration */
+.card-custom {
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* General hover effect for all cards */
+.card-custom:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* 
+====================================================================================
+====================================================================================
+=================================== INPUTS =========================================
+====================================================================================
+====================================================================================
+*/
+
+input,
+textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    background: transparent;
+}
+
+.field:hover {
+    transform: translateY(-2px);
+}
+
+.field {
+    position: relative;
+    border-radius: 14px;
+    background: #eef5ff;
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, .08);
+    transition: transform 250ms ease, box-shadow 250ms ease;
+}
+
+.field:focus-within {
+    box-shadow:
+        inset 0 4px 10px rgba(0, 0, 0, .08),
+        0 0 0 3px rgba(13, 110, 253, .15);
+}
+
+.style-1 {
+    padding: 10px 12px;
+}
+
+textarea {
+    resize: none;
+    min-height: 90px;
+    padding: 12px 14px;
+}
+
+/* textarea variant */
+.style-6 {
+    background: #eef5ff;
+    box-shadow:
+        inset 0 5px 12px rgba(0, 0, 0, .10);
+}
+
+/* 
+====================================================================================
+====================================================================================
+=================================== SLIDER =========================================
+====================================================================================
+====================================================================================
+*/
+.slider-box {
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow:
+        inset 0 2px 6px rgba(0, 0, 0, .05),
+        0 4px 10px rgba(0, 0, 0, .08);
+    margin-bottom: 25px;
+}
+
+.thumb-classic {
+    width: 100%;
+    appearance: none;
+    background: transparent;
+    outline: none;
+}
+
+.thumb-classic::-webkit-slider-thumb {
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #0d6efd;
+    margin-top: -4px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .18);
+}
+
+.thumb-classic::-webkit-slider-thumb:hover {
+    transform: scale(1.28);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .22);
+}
+
+.track::-webkit-slider-runnable-track {
+    height: 14px;
+    background: #e8f1ff;
+    border-radius: 999px;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, .10);
+}
+
+.track::-webkit-slider-thumb {
+    transition:
+        transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1),
+        filter 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    transform-origin: center;
+}
+
+.track::-webkit-slider-thumb:not(:hover) {
+    transition-duration: 420ms;
+}
+
+/* 
+====================================================================================
+====================================================================================
+=================================== PLAYER =========================================
+====================================================================================
+====================================================================================
+*/
+
+.audio-progress-bar::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: 5px;
+    background: linear-gradient(
+        to right,
+        rgba(var(--bs-danger-rgb)) 0%,
+        rgba(var(--bs-danger-rgb)) var(--ttsoc-percentage),
+        #ddd 0%,
+        #ddd 100%
+    );
+}
+
+/* The thumb */
+.audio-progress-bar::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    margin-top: -7px;
+    border-radius: 50%;
+    background: rgba(var(--bs-danger-rgb));
+    cursor: pointer;
+}

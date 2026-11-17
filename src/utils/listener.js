@@ -28,7 +28,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 
     // background js messages
     if (msg.from === 'background') {
-        console.log('background message recieved', msg);
+        // console.log('background message recieved', msg);
         if (msg.action === 'offscreenDocumentLoaded') {
             AudioPlayback.playAudio();
         }

@@ -1,380 +1,435 @@
-<div id="ttsoc-content">
-    <div class="row">
-        <div class="col-12 navigation-menu">
-            <div class="list-group list-group-horizontal " role="tablist">
-                <a class="list-group-item list-group-item-action text-center border-radius-unset active"
-                    id="list-archive-page" data-bs-toggle="list" href="#archive-page" role="tab">
-                    <p class="d-inline"><i class="bi bi-archive-fill mx-2"></i>Content</p>
-                </a>
+<div class="row">
+    <div class="col-12 navigation-menu">
+        <nav class="nav-segmented nav-full" role="tablist">
+            <a class="tab list-group-item-action active" id="list-archive-page" data-bs-toggle="list"
+                href="#archive-page" role="tab">
+                <p class="d-inline"><i class="bi bi-archive-fill mx-2"></i>Content</p>
+            </a>
+            <a class="tab list-group-item-action " id="list-compose-page" data-bs-toggle="list" href="#compose-page"
+                role="tab">
+                <p class="d-inline"><i class="bi bi-body-text mx-2"></i> Compose</p>
+            </a>
+            <a class="tab list-group-item-action " id="list-settings-page" data-bs-toggle="list" href="#settings-page"
+                role="tab">
+                <p class="d-inline"><i class="bi bi-gear-wide-connected mx-2"></i></i> Settings</p>
+            </a>
+            <a class="tab list-group-item-action " id="list-subscription-page" data-bs-toggle="list"
+                href="#subscription-page" role="tab">
+                <p class="d-inline"><i class="bi bi-piggy-bank-fill mx-2"></i> Subscription</p>
+            </a>
+        </nav>
+    </div>
 
-                <a class="list-group-item list-group-item-action text-center border-radius-unset "
-                    id="list-compose-page" data-bs-toggle="list" href="#compose-page" role="tab">
-                    <p class="d-inline"><i class="bi bi-body-text mx-2"></i> Compose</p>
-                </a>
+    <div class="col-12 mt-5 pt-4">
+        <div class="tab-content text-justify p-3" id="nav-tabContent">
+            <div class="tab-pane show active" id="archive-page" role="tabpanel" aria-labelledby="list-archive-page">
+                <!-- <div class="text-center">
+                    <p class="fs-2 ttsoc-page-title">Content</p>
+                </div> -->
 
-                <a class="list-group-item list-group-item-action text-center border-radius-unset "
-                    id="list-settings-page" data-bs-toggle="list" href="#settings-page" role="tab">
-                    <p class="d-inline"><i class="bi bi-gear-wide-connected mx-2"></i></i> Settings</p>
-                </a>
+                <div class="list-group">
+                    <div class="ttsoc-page-content">
+                        <div class="text-center">
 
-                <a class="list-group-item list-group-item-action text-center border-radius-unset"
-                    id="list-subscription-page" data-bs-toggle="list" href="#subscription-page" role="tab">
-                    <p class="d-inline"><i class="bi bi-piggy-bank-fill mx-2"></i> Subscription</p>
-                </a>
+                            <div class="ttsoc-main-content-controls"></div>
+
+                            <div class="ttsoc-audio-control-placeholder"></div>
+
+                            <div class="ttsoc-main-content mt-2"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="col-12 mt-5">
-            <div class="tab-content text-justify p-3" id="nav-tabContent">
-                <div class="tab-pane show active" id="archive-page" role="tabpanel" aria-labelledby="list-archive-page">
-                    <div class="text-center">
-                        <p class="fs-2 ttsoc-page-title">Content</p>
-                    </div>
 
-                    <div class="list-group">
-                        <div class="ttsoc-page-content">
-                            <div class="text-center">
-
-                                <button id="ttsoc-generate-audio" class="btn btn-primary btn-lg shadow-lg">
-                                    <span id="ttsoc-generate-audio-spinner"
-                                        class="spinner-border spinner-border-sm me-2 d-none" role="status"
-                                        aria-hidden="true"></span>
-                                    Generate Audio
-                                </button>
-
-                                <button id="ttsoc-extract-text" class="btn btn-success btn-lg shadow-lg">
-                                    <span id="ttsoc-extract-text-spinner"
-                                        class="spinner-border spinner-border-sm me-2 d-none" role="status"
-                                        aria-hidden="true"></span>
-                                    Extract text
-                                </button>
-
-                                <div class="ttsoc-audio-control-placeholder"></div>
-
-                                <div class="ttsoc-main-content"></div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="tab-pane" id="compose-page" role="tabpanel" aria-labelledby="list-compose-page">
+                <div class="text-center">
+                    <p class="fs-2">Generate Audio With Custom Text</p>
                 </div>
 
+                <div id="ttsoc-custom-text" class="my-2 text-center">
 
-                <div class="tab-pane" id="compose-page" role="tabpanel" aria-labelledby="list-compose-page">
-                    <div class="text-center">
-                        <p class="fs-2">Custom Text</p>
-                    </div>
+                    <div class="ttsoc-audio-control-placeholder"></div>
 
-                    <div id="ttsoc-custom-text" class="my-2 text-center">
+                    <textarea id="ttsoc-custom-text-value" class="field style-6" cols="30" rows="15"
+                        placeholder="Place your text here..."></textarea>
 
-                        <div class="ttsoc-audio-control-placeholder"></div>
+                    <!-- <button id="ttsoc-custom-text-generate" class="btn btn-primary btn-block btn-lg shadow-lg my-3"> -->
+                    <button id="ttsoc-custom-text-generate"
+                        class="btn-dna2 btn-primary-dna bg-success fs-6 text-dark my-4">
+                        <span id="ttsoc-custom-text-generate-spinner"
+                            class="spinner-border spinner-border-sm me-2 d-none" role="status"
+                            aria-hidden="true"></span>
+                        Generate Audio
+                    </button>
 
-                        <div class="shadow-lg">
-                            <textarea id="ttsoc-custom-text-value" class="form-control" cols="30"
-                                rows="15">Place your text here...</textarea>
-                        </div>
+                </div>
+            </div>
 
-                        <button id="ttsoc-custom-text-generate" class="btn btn-primary btn-block btn-lg shadow-lg my-3">
-                            <span id="ttsoc-custom-text-generate-spinner"
-                                class="spinner-border spinner-border-sm me-2 d-none" role="status"
-                                aria-hidden="true"></span>
-                            Generate Audio
-                        </button>
 
-                    </div>
+            <div class="tab-pane" id="settings-page" role="tabpanel" aria-labelledby="list-settings-page">
+                <div class="text-center">
+                    <p class="fs-1 ">Settings</p>
                 </div>
 
+                <div id="ttsoc-settings-content">
+                    <button id="ttsoc-settings-save"
+                        class="btn-dna2 btn-primary-dna bg-warning fs-6 text-dark mt-4 mb-5 w-100">
+                        <span id="ttsoc-settings-save-spinner" class="spinner-border spinner-border-sm me-2 d-none"
+                            role="status" aria-hidden="true"></span>
+                        Save Settings
+                    </button>
 
-                <div class="tab-pane" id="settings-page" role="tabpanel" aria-labelledby="list-settings-page">
-                    <div class="text-center">
-                        <p class="fs-1">Settings</p>
+
+                    <div class="slider-box">
+                        <p class="text-center fs-2">
+                            Voice Speed <span id="ttsoc-settings-speaking-rate-value"></span>
+                        </p>
+                        <input type="range" id="ttsoc-settings-speaking-rate" class="track thumb-classic" min="0.2"
+                            max="2" value="1" step="0.1">
                     </div>
 
-                    <div id="ttsoc-settings-content">
-                        <button id="ttsoc-settings-save" class="btn btn-primary btn-block btn-lg shadow-lg my-3">
-                            <span id="ttsoc-settings-save-spinner" class="spinner-border spinner-border-sm me-2 d-none"
-                                role="status" aria-hidden="true"></span>
-                            Save Settings
-                        </button>
+                    <div id="ttsoc-settings-voice-name" class="my-2">
+                        <form>
+                            <div class="row my-3">
+                                <p class="fs-2 text-center">Voice Type</p>
+                                <div class="col-6 ttsoc-settings-voice-name-male">
+                                    <p class="fs-4 text-center">Male Voices</p>
 
 
-                        <div class="form-control">
-                            <p class="text-center fs-2">
-                                Voice Speed <span id="ttsoc-settings-speaking-rate-value"></span>
-                            </p>
-                            <input type="range" id="ttsoc-settings-speaking-rate" class="form-range" min="0.2" max="2"
-                                value="1" step="0.1">
-                        </div>
-
-                        <div id="ttsoc-settings-voice-name" class="my-2">
-                            <form>
-                                <div class="row my-3">
-                                    <p class="fs-2 text-center">Voice Type</p>
-                                    <div class="col-6 ttsoc-settings-voice-name-male">
-                                        <p class="fs-4 text-center">Male Voices</p>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Achird</p>
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                            <p class="card-title fs-1 text-center">Achird</p>
                                             <input type="radio"
                                                 class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
                                                 name="ttsoc-settings-voice-name-audio" value="Achird">
-                                            <audio class="w-100" src="../audio/chirp3-hd-achird.wav" controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Algenib</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Algenib">
-                                            <audio class="w-100" src="../audio/chirp3-hd-algenib.wav" controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Algieba</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Algieba">
-                                            <audio class="w-100" src="../audio/chirp3-hd-algieba.wav" controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Alnilam</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Alnilam">
-                                            <audio class="w-100" src="../audio/chirp3-hd-alnilam.wav" controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Charon</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Charon">
-                                            <audio class="w-100" src="../audio/chirp3-hd-charon.wav" controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Enceladus</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Enceladus">
-                                            <audio class="w-100" src="../audio/chirp3-hd-enceladus.wav"
-                                                controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Fenrir</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Fenrir">
-                                            <audio class="w-100" src="../audio/chirp3-hd-fenrir.wav" controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Iapetus</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Iapetus">
-                                            <audio class="w-100" src="../audio/chirp3-hd-iapetus.wav" controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Orus</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Orus">
-                                            <audio class="w-100" src="../audio/chirp3-hd-orus.wav" controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Puck</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Puck">
-                                            <audio class="w-100" src="../audio/chirp3-hd-puck.wav" controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Pulcherrima</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Pulcherrima">
-                                            <audio class="w-100" src="../audio/chirp3-hd-pulcherrima.wav"
-                                                controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Rasalgethi</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Rasalgethi">
-                                            <audio class="w-100" src="../audio/chirp3-hd-rasalgethi.wav"
-                                                controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Sadachbia</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Sadachbia">
-                                            <audio class="w-100" src="../audio/chirp3-hd-sadachbia.wav"
-                                                controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Sadaltager</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Sadaltager">
-                                            <audio class="w-100" src="../audio/chirp3-hd-sadaltager.wav"
-                                                controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Schedar</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Schedar">
-                                            <audio class="w-100" src="../audio/chirp3-hd-schedar.wav" controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Umbriel</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Umbriel">
-                                            <audio class="w-100" src="../audio/chirp3-hd-umbriel.wav" controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Zubenelgenubi</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Zubenelgenubi">
-                                            <audio class="w-100" src="../audio/chirp3-hd-zubenelgenubi.wav"
+                                            <audio class="w-100 d-none" src="../audio/chirp3-hd-achird.wav"
                                                 controls></audio>
                                         </div>
                                     </div>
-                                    <div class="col-6 ttsoc-settings-voice-name-female">
-                                        <p class="fs-4 text-center">Female Voices</p>
 
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Achernar</p>
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                            <p class="card-title fs-1 text-center">Algenib</p>
                                             <input type="radio"
                                                 class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Achernar">
-                                            <audio class="w-100" src="../audio/chirp3-hd-achernar.wav" controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Aoeda</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Aoeda">
-                                            <audio class="w-100" src="../audio/chirp3-hd-aoeda.wav" controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Autonoe</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Autonoe">
-                                            <audio class="w-100" src="../audio/chirp3-hd-autonoe.wav" controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Callirrhoe</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Callirrhoe">
-                                            <audio class="w-100" src="../audio/chirp3-hd-callirrhoe.wav"
+                                                name="ttsoc-settings-voice-name-audio" value="Algenib">
+                                            <audio class="w-100 d-none" src="../audio/chirp3-hd-algenib.wav"
                                                 controls></audio>
                                         </div>
+                                    </div>
 
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Despina</p>
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                            <p class="card-title fs-1 text-center">Algieba</p>
                                             <input type="radio"
                                                 class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Despina">
-                                            <audio class="w-100" src="../audio/chirp3-hd-despina.wav" controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Erinome</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Erinome">
-                                            <audio class="w-100" src="../audio/chirp3-hd-erinome.wav" controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Gacrux</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Gacrux">
-                                            <audio class="w-100" src="../audio/chirp3-hd-gacrux.wav" controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Kore</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Kore">
-                                            <audio class="w-100" src="../audio/chirp3-hd-kore.wav" controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Laomedeia</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Laomedeia">
-                                            <audio class="w-100" src="../audio/chirp3-hd-laomedeia.wav"
+                                                name="ttsoc-settings-voice-name-audio" value="Algieba">
+                                            <audio class="w-100 d-none" src="../audio/chirp3-hd-algieba.wav"
                                                 controls></audio>
                                         </div>
+                                    </div>
 
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Leda</p>
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                            <p class="card-title fs-1 text-center">Alnilam</p>
                                             <input type="radio"
                                                 class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Leda">
-                                            <audio class="w-100" src="../audio/chirp3-hd-leda.wav" controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Sulafat</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Sulafat">
-                                            <audio class="w-100" src="../audio/chirp3-hd-sulafat.wav" controls></audio>
-                                        </div>
-
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Vindemiatrix</p>
-                                            <input type="radio"
-                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Vindemiatrix">
-                                            <audio class="w-100" src="../audio/chirp3-hd-vindemiatrix.wav"
+                                                name="ttsoc-settings-voice-name-audio" value="Alnilam">
+                                            <audio class="w-100 d-none" src="../audio/chirp3-hd-alnilam.wav"
                                                 controls></audio>
                                         </div>
+                                    </div>
 
-                                        <div class="form-control card shadow-lg ttsoc-settings-voice-name-audio">
-                                            <p class="fs-2 text-center">Zephyr</p>
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                            <p class="card-title fs-1 text-center">Charon</p>
                                             <input type="radio"
                                                 class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
-                                                name="ttsoc-settings-voice-name-audio" value="Zephyr">
-                                            <audio class="w-100" src="../audio/chirp3-hd-zephyr.wav" controls></audio>
+                                                name="ttsoc-settings-voice-name-audio" value="Charon">
+                                            <audio class="w-100 d-none" src="../audio/chirp3-hd-charon.wav"
+                                                controls></audio>
+                                        </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                            <p class="card-title fs-1 text-center">Enceladus</p>
+                                            <input type="radio"
+                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                                name="ttsoc-settings-voice-name-audio" value="Enceladus">
+                                            <audio class="w-100 d-none" src="../audio/chirp3-hd-enceladus.wav"
+                                                controls></audio>
+                                        </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                            <p class="card-title fs-1 text-center">Fenrir</p>
+                                            <input type="radio"
+                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                                name="ttsoc-settings-voice-name-audio" value="Fenrir">
+                                            <audio class="w-100 d-none" src="../audio/chirp3-hd-fenrir.wav"
+                                                controls></audio>
+                                        </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                            <p class="card-title fs-1 text-center">Iapetus</p>
+                                            <input type="radio"
+                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                                name="ttsoc-settings-voice-name-audio" value="Iapetus">
+                                            <audio class="w-100 d-none" src="../audio/chirp3-hd-iapetus.wav"
+                                                controls></audio>
+                                        </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                            <p class="card-title fs-1 text-center">Orus</p>
+                                            <input type="radio"
+                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                                name="ttsoc-settings-voice-name-audio" value="Orus">
+                                            <audio class="w-100 d-none" src="../audio/chirp3-hd-orus.wav"
+                                                controls></audio>
+                                        </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                            <p class="card-title fs-1 text-center">Puck</p>
+                                            <input type="radio"
+                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                                name="ttsoc-settings-voice-name-audio" value="Puck">
+                                            <audio class="w-100 d-none" src="../audio/chirp3-hd-puck.wav"
+                                                controls></audio>
+                                        </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                            <p class="card-title fs-1 text-center">Pulcherrima</p>
+                                            <input type="radio"
+                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                                name="ttsoc-settings-voice-name-audio" value="Pulcherrima">
+                                            <audio class="w-100 d-none" src="../audio/chirp3-hd-pulcherrima.wav"
+                                                controls></audio>
+                                        </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                            <p class="card-title fs-1 text-center">Rasalgethi</p>
+                                            <input type="radio"
+                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                                name="ttsoc-settings-voice-name-audio" value="Rasalgethi">
+                                            <audio class="w-100 d-none" src="../audio/chirp3-hd-rasalgethi.wav"
+                                                controls></audio>
+                                        </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                            <p class="card-title fs-1 text-center">Sadachbia</p>
+                                            <input type="radio"
+                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                                name="ttsoc-settings-voice-name-audio" value="Sadachbia">
+                                            <audio class="w-100 d-none" src="../audio/chirp3-hd-sadachbia.wav"
+                                                controls></audio>
+                                        </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                            <p class="card-title fs-1 text-center">Sadaltager</p>
+                                            <input type="radio"
+                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                                name="ttsoc-settings-voice-name-audio" value="Sadaltager">
+                                            <audio class="w-100 d-none" src="../audio/chirp3-hd-sadaltager.wav"
+                                                controls></audio>
+                                        </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                            <p class="card-title fs-1 text-center">Schedar</p>
+                                            <input type="radio"
+                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                                name="ttsoc-settings-voice-name-audio" value="Schedar">
+                                            <audio class="w-100 d-none" src="../audio/chirp3-hd-schedar.wav"
+                                                controls></audio>
+                                        </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                            <p class="card-title fs-1 text-center">Umbriel</p>
+                                            <input type="radio"
+                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                                name="ttsoc-settings-voice-name-audio" value="Umbriel">
+                                            <audio class="w-100 d-none" src="../audio/chirp3-hd-umbriel.wav"
+                                                controls></audio>
+                                        </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                            <p class="card-title fs-1 text-center">Zubenelgenubi</p>
+                                            <input type="radio"
+                                                class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                                name="ttsoc-settings-voice-name-audio" value="Zubenelgenubi">
+                                            <audio class="w-100 d-none" src="../audio/chirp3-hd-zubenelgenubi.wav"
+                                                controls></audio>
                                         </div>
                                     </div>
                                 </div>
 
-                            </form>
-                        </div>
+
+                                <div class="col-6 ttsoc-settings-voice-name-female">
+                                    <p class="fs-4 text-center">Female Voices</p>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                        <p class="card-title fs-1 text-center">Achernar</p>
+                                        <input type="radio"
+                                            class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                            name="ttsoc-settings-voice-name-audio" value="Achernar">
+                                        <audio class="w-100 d-none" src="../audio/chirp3-hd-achernar.wav" controls></audio>
+                                    </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                        <p class="card-title fs-1 text-center">Aoeda</p>
+                                        <input type="radio"
+                                            class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                            name="ttsoc-settings-voice-name-audio" value="Aoeda">
+                                        <audio class="w-100 d-none" src="../audio/chirp3-hd-aoeda.wav" controls></audio>
+                                    </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                        <p class="card-title fs-1 text-center">Autonoe</p>
+                                        <input type="radio"
+                                            class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                            name="ttsoc-settings-voice-name-audio" value="Autonoe">
+                                        <audio class="w-100 d-none" src="../audio/chirp3-hd-autonoe.wav" controls></audio>
+                                    </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                        <p class="card-title fs-1 text-center">Callirrhoe</p>
+                                        <input type="radio"
+                                            class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                            name="ttsoc-settings-voice-name-audio" value="Callirrhoe">
+                                        <audio class="w-100 d-none" src="../audio/chirp3-hd-callirrhoe.wav" controls></audio>
+                                    </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                        <p class="card-title fs-1 text-center">Despina</p>
+                                        <input type="radio"
+                                            class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                            name="ttsoc-settings-voice-name-audio" value="Despina">
+                                        <audio class="w-100 d-none" src="../audio/chirp3-hd-despina.wav" controls></audio>
+                                    </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                        <p class="card-title fs-1 text-center">Erinome</p>
+                                        <input type="radio"
+                                            class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                            name="ttsoc-settings-voice-name-audio" value="Erinome">
+                                        <audio class="w-100 d-none" src="../audio/chirp3-hd-erinome.wav" controls></audio>
+                                    </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                        <p class="card-title fs-1 text-center">Gacrux</p>
+                                        <input type="radio"
+                                            class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                            name="ttsoc-settings-voice-name-audio" value="Gacrux">
+                                        <audio class="w-100 d-none" src="../audio/chirp3-hd-gacrux.wav" controls></audio>
+                                    </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                        <p class="card-title fs-1 text-center">Kore</p>
+                                        <input type="radio"
+                                            class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                            name="ttsoc-settings-voice-name-audio" value="Kore">
+                                        <audio class="w-100 d-none" src="../audio/chirp3-hd-kore.wav" controls></audio>
+                                    </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                        <p class="card-title fs-1 text-center">Laomedeia</p>
+                                        <input type="radio"
+                                            class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                            name="ttsoc-settings-voice-name-audio" value="Laomedeia">
+                                        <audio class="w-100 d-none" src="../audio/chirp3-hd-laomedeia.wav" controls></audio>
+                                    </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                        <p class="card-title fs-1 text-center">Leda</p>
+                                        <input type="radio"
+                                            class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                            name="ttsoc-settings-voice-name-audio" value="Leda">
+                                        <audio class="w-100 d-none" src="../audio/chirp3-hd-leda.wav" controls></audio>
+                                    </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                        <p class="card-title fs-1 text-center">Sulafat</p>
+                                        <input type="radio"
+                                            class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                            name="ttsoc-settings-voice-name-audio" value="Sulafat">
+                                        <audio class="w-100 d-none" src="../audio/chirp3-hd-sulafat.wav" controls></audio>
+                                    </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                        <p class="card-title fs-1 text-center">Vindemiatrix</p>
+                                        <input type="radio"
+                                            class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                            name="ttsoc-settings-voice-name-audio" value="Vindemiatrix">
+                                        <audio class="w-100 d-none" src="../audio/chirp3-hd-vindemiatrix.wav" controls></audio>
+                                    </div>
+                                    </div>
+
+                                    <div class="card card-custom my-2 ttsoc-settings-voice-name-audio">
+                                        <div class="card-body">
+                                        <p class="card-title fs-1 text-center">Zephyr</p>
+                                        <input type="radio"
+                                            class="radio fs-2 ttsoc-settings-voice-name-audio-radio d-none"
+                                            name="ttsoc-settings-voice-name-audio" value="Zephyr">
+                                        <audio class="w-100 d-none" src="../audio/chirp3-hd-zephyr.wav" controls></audio>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
                     </div>
                 </div>
+            </div>
 
 
-                <div class="tab-pane" id="subscription-page" role="tabpanel" aria-labelledby="list-subscription-page">
-                    <div class="text-center">
-                        <p class="fs-2">Comming soon...</p>
-                    </div>
+            <div class="tab-pane" id="subscription-page" role="tabpanel" aria-labelledby="list-subscription-page">
+                <div class="text-center">
+                    <p class="fs-2">Comming soon...</p>
                 </div>
             </div>
         </div>

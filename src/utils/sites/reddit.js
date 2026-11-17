@@ -173,46 +173,88 @@ const Reddit = {
         const karma = content.karma;
         const comments = content.comments;
 
-        let html = `<p class="fs-2">${title}</p>`;
-        html += `<p class="fs-5">${author} <span class="badge bg-danger">${karma}</span></p>`;
-        html += `<p class="fs-6 ttsoc-read-more" data-text-content="${Utils.encodeTextContent(post)}">${Utils.sliceText(post)}</p>`;
-        html += `<div id="cardAccordion" class="accordion">`;
+        const splitPost = Utils.splitText(post);
+
+        let html = `<h2 class="fs-2 fw-bold">${title}</h2>`;
+        html += `<h3 class="fs-5 fw-bold text-secondary d-inline">
+                    <i class="bi bi-reddit text-danger"></i>
+                    ${author} 
+                </h3>
+                <span class="badge bg-danger fs-6 align-top" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" data-bs-title="<p class='text-light align-middle fs-6 fw-bold'>Karma</p>">${karma}</span>`;
+        html += `<hr>`;
+        html += `<p class="text-start fs-4">${Utils.breaklineText(splitPost['firstPart'])}`;
+        if (splitPost['secondPart'].toString().length > 0) {
+            html += `<button class="btn-dna2 btn-primary-dna bg-warning fs-6 text-dark mx-4 ttsoc-read-more">Read More</button>`
+        }
+        html += `</p>`;
+        html += `<p class="text-start fs-4 ttsoc-extra-content d-none">${Utils.breaklineText(splitPost['secondPart'])}</p>`;
+        html += `<div class="row mb-4">`;
 
         comments.forEach((comment, idx) => {
-            // const isCheckedComment = Math.random() > 0.4 ? 'checked="checked"' : ''; // for testing
-            html += `<div class="card shadow-lg">
-                        <div class="card-header" id="heading-${idx}" data-bs-toggle="collapse" 
-                            data-bs-target="#collapse-${idx}" aria-expanded="false" aria-controls="collapse-${idx}" role="button"
-                        >
-                            <input type="checkbox" id="${comment._id}" class="form-check-input form-check-success form-check-glow ttsoc-send-content">
-                            <p class="fs-5">${comment.author} <span class="badge bg-danger">${comment.karma}</span></p>
-                            <span class="collapsed collapse-title fs-6 ttsoc-read-more" data-text-content="${Utils.encodeTextContent(comment.text)}">${Utils.sliceText(comment.text)}</span>
-                        </div>
-                        <div id="collapse-${idx}" class="collapse pt-1" aria-labelledby="heading-${idx}" data-parent="#cardAccordion">
-                            <div class="card-body">`;
-
-            const replies = comment.replies;
-            replies.forEach((replie, idx2) => {
-                // const isCheckedReply = Math.random() > 0.4 ? 'checked="checked"' : ''; // for testing
-                html += `       <div class="divider">
-                                    <div class="divider-text">
-                                        <input type="checkbox" id="${replie._id}" class="form-check-input form-check-success form-check-glow ttsoc-send-content">
-                                        <p class="fs-5">${replie.author} <span class="badge bg-danger">${replie.karma}</span></p>
-                                    </div>
-                                </div>
-                                <p class="fs-6 ttsoc-read-more" data-text-content="${Utils.encodeTextContent(replie.text)}">${Utils.sliceText(replie.text)}</p>`;
-
-            });
-
-            html += `       </div>
+            html += `<div class="card card-custom mb-3 ttsoc-send-content-comment" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" data-bs-title="<p class='text-light align-middle fs-6 fw-bold'>Click to select comment</p>">
+                        <div class="card-body">
+                            <h3 class="card-title fs-2 fw-bold">
+                                <input class="form-check-input ttsoc-send-content d-none" type="checkbox" id="${comment._id}">
+                                <i class="bi bi-reddit text-danger"></i>
+                                ${comment.author} <span class="badge bg-danger" alt="Karma">${comment.karma}</span>
+                            </h3>
+                            <p class="ttsoc-extra-content text-start">${Utils.breaklineText(comment.text, 1)}</p>
                         </div>
                     </div>`;
         });
 
         html += `</div>`;
 
+
         return html;
     },
+    // async generateContentHTML(content) {
+    //     const author = content.author;
+    //     const post = content.postContent;
+    //     const title = content.title;
+    //     const karma = content.karma;
+    //     const comments = content.comments;
+
+    //     let html = `<p class="fs-2">${title}</p>`;
+    //     html += `<p class="fs-5">${author} <span class="badge bg-danger">${karma}</span></p>`;
+    //     html += `<p class="fs-6 ttsoc-read-more" data-text-content="${Utils.encodeTextContent(post)}">${Utils.sliceText(post)}</p>`;
+    //     html += `<div id="cardAccordion" class="accordion">`;
+
+    //     comments.forEach((comment, idx) => {
+    //         // const isCheckedComment = Math.random() > 0.4 ? 'checked="checked"' : ''; // for testing
+    //         html += `<div class="card shadow-lg">
+    //                     <div class="card-header" id="heading-${idx}" data-bs-toggle="collapse" 
+    //                         data-bs-target="#collapse-${idx}" aria-expanded="false" aria-controls="collapse-${idx}" role="button"
+    //                     >
+    //                         <input type="checkbox" id="${comment._id}" class="form-check-input form-check-success form-check-glow ttsoc-send-content">
+    //                         <p class="fs-5">${comment.author} <span class="badge bg-danger">${comment.karma}</span></p>
+    //                         <span class="collapsed collapse-title fs-6 ttsoc-read-more" data-text-content="${Utils.encodeTextContent(comment.text)}">${Utils.sliceText(comment.text)}</span>
+    //                     </div>
+    //                     <div id="collapse-${idx}" class="collapse pt-1" aria-labelledby="heading-${idx}" data-parent="#cardAccordion">
+    //                         <div class="card-body">`;
+
+    //         const replies = comment.replies;
+    //         replies.forEach((replie, idx2) => {
+    //             // const isCheckedReply = Math.random() > 0.4 ? 'checked="checked"' : ''; // for testing
+    //             html += `       <div class="divider">
+    //                                 <div class="divider-text">
+    //                                     <input type="checkbox" id="${replie._id}" class="form-check-input form-check-success form-check-glow ttsoc-send-content">
+    //                                     <p class="fs-5">${replie.author} <span class="badge bg-danger">${replie.karma}</span></p>
+    //                                 </div>
+    //                             </div>
+    //                             <p class="fs-6 ttsoc-read-more" data-text-content="${Utils.encodeTextContent(replie.text)}">${Utils.sliceText(replie.text)}</p>`;
+
+    //         });
+
+    //         html += `       </div>
+    //                     </div>
+    //                 </div>`;
+    //     });
+
+    //     html += `</div>`;
+
+    //     return html;
+    // },
 
 
     /**

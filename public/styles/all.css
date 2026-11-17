@@ -1,5 +1,6 @@
 @import 'bootstrap.min.css';
-@import 'app.css';
+/* @import 'app.css'; */
+@import 'custom.css';
 @import 'chat.css';
 @import 'popup.css';
 @import 'bootstrap-icons.min.css';

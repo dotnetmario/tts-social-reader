@@ -58,6 +58,33 @@ const Api = {
         const data = await response.json();
 
         return data;
+    },
+
+    /**
+     * request for a website to be supported
+     * 
+     * @param {string} url
+     */
+    async requestWebsiteSupport(url){
+        const token = await Auth.retreiveAuthToken();
+        const body = {
+            'url': url
+        }
+
+        const response = await fetch(`${Defines.BASE_API_URL}/request-website-support`, {
+            headers: {
+                'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token
+            },
+            method: 'POST',
+            body: JSON.stringify(body)
+        });
+
+        // checks if the user is still logged in, if not we redirect to login page
+        await Utils.checkAuthenticationStatus(response);
+
+        const data = await response.json();
+
+        return data;
     }
 };
 

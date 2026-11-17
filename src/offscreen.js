@@ -24,6 +24,9 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
             audio.currentTime = newTime;
             break;
 
+        case "speed":
+            audio.playbackRate = msg.speed;
+
         case "getState":
             sendResponse({
                 currentTime: audio.currentTime,

@@ -21,15 +21,25 @@ $(function () {
         const isUserAuthenticated = await Auth.isUserAuthenticated();
 
         if (isUserAuthenticated === true) {
+            console.log('heere');
             await Utils.loadSiteContent('ttsoc-main-content');
 
             // display audio control when we get message from background.js
-            chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+            chrome.runtime.onMessage.addListener(async (msg, sender, sendResponse) => {
                 if (msg.from === 'offscreen') {
                     if (msg.action === 'audioPlaybackUpdate') {
                         if (!AudioPlayback.isAudioControlHTMLExists()) {
                             AudioPlayback.displayAudioControlHTML();
                         }
+
+                        // update the audio progress bar color (youtube style)
+                        const percentage = (msg.currentTime / msg.duration) * 100;
+                        $(document).find('.audio-progress-bar').css('--ttsoc-percentage', `${percentage}%`);
+
+                        // get the playback speed setting
+                        const speed = await Utils.getSetting('speakingRate');
+                        // set playback speed
+                        AudioPlayback.setPlaybackSpeed(speed ?? 1);
                     }
                 }
 
@@ -37,8 +47,23 @@ $(function () {
                 return false;
             });
         }
+
+        // innitializign tooltips
+        $(document).find('[data-bs-toggle="tooltip"]')
+            .each((idx, element) => {
+                new bootstrap.Tooltip(element);
+            });
+
+
+        // AudioPlayback.displayAudioControlHTML('.ttsoc-audio-control-placeholder');
     });
 
+
+    /**
+     * ===========================================
+     * ============== AUTHENTICATION =============
+     * ===========================================
+     */
     /**
      * login event
      */
@@ -55,6 +80,7 @@ $(function () {
             await View.renderFirstContent();
         } catch (error) {
             console.log(error);
+            Logger.displayNotification('error', 'Soemthing went wrong, Try again later');
         } finally {
             $(this).find('#ttsoc-loginspinner').addClass('d-none');
             $(this).removeClass('disabled');
@@ -69,30 +95,97 @@ $(function () {
         const register = `${Defines.BASE_URL}/register`;
         window.open(register, "_blank");
     });
+    /**
+     * ===========================================
+     * ============= \AUTHENTICATION =============
+     * ===========================================
+     */
+
+
+
+
+    $(document).on('click', '#ttsoc-request-website-support', async function () {
+        $(this).find('#ttsoc-request-website-support-spinner').removeClass('d-none');
+        $(this).addClass('disabled btn-disabled bg-success');
+        $(this).removeClass('bg-warning');
+
+
+        try {
+            const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+            const url = tab.url;
+
+            const response = await Api.requestWebsiteSupport(url);
+
+            if (response.success === true) {
+                Logger.displayNotification('success', 'Your request is well heard');
+            }
+
+            if (response.success === false) {
+                Logger.displayNotification('error', 'Soemthing went wrong, Try again later');
+            }
+        } catch (error) {
+            console.log(error);
+        } finally {
+            $(this).find('#ttsoc-request-website-support-spinner').addClass('d-none');
+            $(this).removeClass('disabled btn-disabled bg-success');
+            $(this).addClass('bg-warning');
+        }
+    });
+
 
     /**
      * display the truncated text "read more"
      */
     $(document).on('click', '.ttsoc-read-more', function () {
-        const expanded = $(this).attr('expanded');
-        const text = Utils.decodeTextContent($(this).attr('data-text-content'));
-        // text is truncated
-        if (expanded === undefined) {
-            // assign the attribute text the visible text
-            $(this).text(text);
-            // add an attribute to indicate if the text expanded
-            $(this).attr('expanded', 'expanded');
+        const extraContent = $(this).parent().siblings('.ttsoc-extra-content');
 
-            return;
+        // content is hidden
+        if (extraContent.hasClass('d-none')) {
+            extraContent.removeClass('d-none');
+            $(this).html('Read Less');
+        } else {
+            extraContent.addClass('d-none');
+            $(this).html('Read More');
         }
 
-        // text is not truncated
-        const slicedText = Utils.sliceText(text);
-        $(this).text(slicedText);
-        // remove the attribute
-        $(this).removeAttr('expanded');
+
+
+        // const expanded = $(this).attr('expanded');
+        // const text = Utils.decodeTextContent($(this).attr('data-text-content'));
+        // // text is truncated
+        // if (expanded === undefined) {
+        //     // assign the attribute text the visible text
+        //     $(this).text(text);
+        //     // add an attribute to indicate if the text expanded
+        //     $(this).attr('expanded', 'expanded');
+
+        //     return;
+        // }
+
+        // // text is not truncated
+        // const slicedText = Utils.sliceText(text);
+        // $(this).text(slicedText);
+        // // remove the attribute
+        // $(this).removeAttr('expanded');
     });
 
+
+    /**
+     * check the checkbox input when the comment card is clicked
+     */
+    $(document).on('click', '.ttsoc-send-content-comment', function () {
+        // ttsoc-send-content
+        const checkbox = $(this).find('input.ttsoc-send-content');
+
+        // input checked
+        if (checkbox.is(':checked')) {
+            $(this).removeClass('border border-success border-3');
+            checkbox.removeAttr('checked');
+        } else {
+            $(this).addClass('border border-success border-3');
+            checkbox.attr('checked', 'checked');
+        }
+    });
     /**
      * extract and display content from the page
      * 
@@ -105,6 +198,7 @@ $(function () {
             await Utils.displaySiteContent('ttsoc-main-content');
         } catch (error) {
             console.log(error);
+            Logger.displayNotification('error', 'Soemthing went wrong');
         } finally {
             $(this).find('#ttsoc-extract-text-spinner').addClass('d-none');
             $(this).removeClass('disabled');
@@ -116,8 +210,6 @@ $(function () {
      * on what content the user has selected for audio generation
      */
     $(document).on('click', '#ttsoc-generate-audio', async function () {
-
-
         // return;
         $(this).find('#ttsoc-generate-audio-spinner').removeClass('d-none');
         $(this).addClass('disabled');
@@ -174,6 +266,7 @@ $(function () {
             }
         } catch (error) {
             console.log(error);
+            Logger.displayNotification('error', 'Soemthing went wrong, Try again later');
         } finally {
             $(this).find('#ttsoc-generate-audio-spinner').addClass('d-none');
             $(this).removeClass('disabled');
@@ -265,21 +358,31 @@ $(function () {
      * when a voice choice is clicked, plays the audio sample for the voice type
      * and stores the voice name value in local storage
      */
-    $(document).on('click', '.ttsoc-settings-voice-name-audio', async function () {
+    $(document).on('click', '.ttsoc-settings-voice-name-audio', async function (e) {
         $(document).find('.ttsoc-settings-voice-name-audio').removeClass('border border-success border-3');
-        $(this).find('.ttsoc-settings-voice-name-audio-radio')[0].click();
+        $(document).find('.ttsoc-settings-voice-name-audio-volume-icon').remove();
         $(this).addClass('border border-success border-3');
 
-        const voiceName = $(this).find('.ttsoc-settings-voice-name-audio-radio').val();
+        const radio = $(this).find('.ttsoc-settings-voice-name-audio-radio');
+        radio.prop('checked', true);
+        const voiceName = radio.val();
+        const audio = $(this).find('audio')[0];
 
-        const audio = $(this).find('audio');
         $(document).find('.ttsoc-settings-voice-name-audio audio').each(function () {
-            this.pause();
+            if (audio != this) {
+                this.pause();
+            }
         });
-        audio[0].play();
+
+        // audio is paused
+        if (audio.paused) {
+            audio.play();
+            $(this).find('.card-title').prepend('<i class="bi bi-volume-up-fill ttsoc-settings-voice-name-audio-volume-icon mx-2 text-success"></i>');
+        } else { // audio is playing
+            audio.pause();
+        }
 
         await Utils.saveSettings('voiceName', voiceName);
-
     });
 
     /**
@@ -291,6 +394,11 @@ $(function () {
         $(document).find('#ttsoc-settings-speaking-rate-value').text(' x' + speakingRate);
 
         await Utils.saveSettings('speakingRate', speakingRate);
+
+        // change the speeaking rate on the fly
+        if (AudioPlayback.isAudioControlHTMLExists()) {
+            AudioPlayback.setPlaybackSpeed(speakingRate);
+        }
     });
 
     /**
@@ -310,7 +418,7 @@ $(function () {
                 Logger.displayNotification('error', Defines.ERROR_MESSAGES.generic);
             }
         } catch (error) {
-            console.log(error);
+            Logger.displayNotification('error', Defines.ERROR_MESSAGES.generic);
         } finally {
             $(this).find('#ttsoc-settings-save-spinner').addClass('d-none');
             $(this).removeClass('disabled');
@@ -328,9 +436,9 @@ $(function () {
      * ================ CUSTOM TEXT ================
      * =============================================
      */
-    $(document).on('focus', '#ttsoc-custom-text-value', function () {
-        $(this).val('');
-    });
+    // $(document).on('focus', '#ttsoc-custom-text-value', function () {
+    //     $(this).val('');
+    // });
 
     // $(document).on('blur', '#ttsoc-custom-text-value', function () {
     //     $(this).val('Place your text here...');
@@ -341,9 +449,13 @@ $(function () {
      */
     $(document).on('click', '#ttsoc-custom-text-generate', async function () {
         const text = $(document).find('#ttsoc-custom-text-value').val();
-        console.log(text);
 
         if (text.length <= 0) {
+            $(document).find('#ttsoc-custom-text-value').addClass('border-2 border border-danger');
+
+            setTimeout(() => {
+                $(document).find('#ttsoc-custom-text-value').removeClass('border-2 border border-danger');
+            }, 500);
             return;
         }
 
@@ -352,10 +464,12 @@ $(function () {
 
         try {
             // send call to generate content audio 
-            const response = await Api.generateAudio(text, 'custom-text');
+            const response = {};//await Api.generateAudio(text, 'custom-text');
 
-            if (response.success === true) {
-                const audioUrl = await response.data.path_to_file;
+            if (response.success === true || true) {
+                console.log('in the request response');
+                // const audioUrl = await response.data.path_to_file;
+                const audioUrl = 'C:/laragon/www/tts-social-reader-api/public/storage/tts/11/2025-12-14/audio_1765736449_cdbf308f-dd60-4f57-9f00-9cad33adb54c.mp3';
 
                 // save audio file to page content store
                 // await Storage.appendContent(url, 'audioUrl', audioUrl);
@@ -371,7 +485,7 @@ $(function () {
                 Logger.displayNotification('error', response.message);
             }
         } catch (error) {
-            console.log(error);
+            Logger.displayNotification('error', 'Oops... Something Went Wrong :(');
         } finally {
             $(this).find('#ttsoc-custom-text-generate-spinner').addClass('d-none');
             $(this).removeClass('disabled');

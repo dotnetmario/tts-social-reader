@@ -1,4 +1,5 @@
 // logic for popup.html
+import '../public/styles/all.css';
 
 import './utils/global.js';
 import './utils/events.js';

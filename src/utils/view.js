@@ -18,6 +18,40 @@ const View = {
     },
 
     /**
+     * displays the main content controls
+     * @param {string} targetClass container class
+     */
+    displayMainContentControls(targetClass = '.ttsoc-main-content-controls') {
+        // <button id="ttsoc-request-website-support" class="btn-dna2 btn-primary-dna bg-warning text-dark">
+        //     <span id="ttsoc-request-website-support-spinner" class="spinner-border spinner-border-sm me-2 d-none" role="status" aria-hidden="true"></span>
+        //     Request For Support
+        // </button>
+        const controls = `<button id="ttsoc-generate-audio" class="btn-dna2 btn-primary-dna bg-success text-dark mx-2">
+                            <span id="ttsoc-generate-audio-spinner"
+                                class="spinner-border spinner-border-sm me-2 d-none" role="status"
+                                aria-hidden="true"></span>
+                            Generate Audio
+                        </button>
+
+                        <button id="ttsoc-extract-text" class="btn-dna2 btn-primary-dna bg-warning text-dark mx-2">
+                            <span id="ttsoc-extract-text-spinner"
+                                class="spinner-border spinner-border-sm me-2 d-none" role="status"
+                                aria-hidden="true"></span>
+                            Extract Content
+                        </button>`;
+
+        $(document).find(targetClass).html(controls);
+    },
+
+    /**
+     * removes the main content controls
+     * @param {string} targetClass container class
+     */
+    removeMainContentControls(targetClass = '.ttsoc-main-content-controls') {
+        $(document).find(targetClass).html('');
+    },
+
+    /**
      * prints an HTML file content inside the main div
      * @param {string} page 
      * @param {string} container 
@@ -41,7 +75,7 @@ const View = {
             const doc = parser.parseFromString(text, 'text/html');
 
             // Extract the desired content from the parsed HTML
-            const content = doc.body;//getElementById('ttsoc-content').innerHTML; // Adjust the selector as needed
+            const content = doc.body.innerHTML;//getElementById('ttsoc-content').innerHTML; // Adjust the selector as needed
 
             // Insert the content into the target div
             $(document).find(container).html(content);
@@ -79,7 +113,14 @@ const View = {
      * @param {string} targetClass 
      */
     displayUnsupportedSiteMessage(targetClass) {
-        const html = `<p class="fs-2 my-5 text-danger">Site is not supported</p>`;
+        const html = `
+                        <i class="bi bi-display text-danger" style="font-size: 15em;"></i>
+                        <p class="fs-1 fw-bold text-danger" style="margin-top: -2em">Website is not supported <i class="bi bi-emoji-frown"></i></p>
+                        <button id="ttsoc-request-website-support" class="btn-dna2 btn-primary-dna bg-warning text-dark">
+                            <span id="ttsoc-request-website-support-spinner" class="spinner-border spinner-border-sm me-2 d-none" role="status" aria-hidden="true"></span>
+                            Request For Support
+                        </button>
+                    `;
 
         $(document).find(`div.${targetClass}`).html(html);
     }

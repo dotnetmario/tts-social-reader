@@ -15,23 +15,27 @@ const AudioPlayback = {
      * @param {string} placeholder jQuery selector for the element where the audio player controls will be appended
      */
     displayAudioControlHTML(placeholder = '.ttsoc-audio-control-placeholder') {
-        const html = `<div id="" class="my-3 py-3 px-5 shadow-lg ttsoc-audio-control">
+        const html = `<div class="ttsoc-audio-control card-custom my-3 py-3 px-5 border border-3 border-success">
                         <div>
-                            <button id=""
-                                class="ttsoc-audio-control-play btn btn-success rounded-pill shadow-lg mx-2">Play</button>
-                            <button id=""
-                                class="ttsoc-audio-control-pause btn btn-warning rounded-pill shadow-lg mx-2">Pause</button>
+                            <button class="ttsoc-audio-control-play btn-dna2 btn-primary-dna text-dark mx-2 bg-success">
+                                <i class="bi bi-play-fill"></i>
+                                Play
+                            </button>
+                            <button class="ttsoc-audio-control-pause btn-dna2 btn-primary-dna text-dark mx-2 bg-warning">
+                                <i class="bi bi-pause-fill"></i>
+                                Pause
+                            </button>
 
-                            <button id="" class="ttsoc-audio-control-close btn btn-danger rounded-pill shadow-lg float-end">
-                                <i class="bi bi-x-lg text-light"></i>
+                            <button class="ttsoc-audio-control-close btn-dna2 btn-primary-dna text-dark mx-2 bg-danger float-end">
+                                <i class="bi bi-x-lg text-dark"></i>
                             </button>
                         </div>
 
                         <div class="my-3">
-                            <input id="" type="range" class="ttsoc-audio-control-progressbar form-range" min="0" max="100" value="0">
+                            <input type="range" class="ttsoc-audio-control-progressbar audio-progress-bar  form-range" min="0" max="100" value="0">
                         </div>
 
-                        <div class="ttsoc-audio-control-timestamp">
+                        <div class="ttsoc-audio-control-timestamp fs-1 fw-bold">
                             <span class="ttsoc-audio-control-timestamp-current-time">00:00</span> /
                             <span class="ttsoc-audio-control-timestamp-duration">00:00</span>
                         </div>
@@ -39,6 +43,66 @@ const AudioPlayback = {
 
         $(document).find(placeholder).html(html);
     },
+    // displayAudioControlHTML(placeholder = '.ttsoc-audio-control-placeholder') {
+    //     // <div class="player">
+
+    //     //     <!-- PLAY -->
+    //     //     <button class="btn-dna play" id="play">▶</button>
+
+    //     //     <!-- META -->
+    //     //     <div class="meta">
+    //     //         <div class="title">Focus Audio</div>
+    //     //         <div class="time" id="time">1:12 / 3:45</div>
+    //     //     </div>
+
+    //     //     <!-- SEEK -->
+    //         // <div class="seek">
+    //         //     <div class="track-seek">
+    //         //         <div class="fill" id="fill"></div>
+    //         //     </div>
+
+    //         //     <input type="range" id="seek" min="0" max="100" value="35">
+
+    //         //     <div class="mini-marks">
+    //         //         <span class="mark" data="0">0:00</span>
+    //         //         <span class="mark" data="25">0:56</span>
+    //         //         <span class="mark" data="50">1:52</span>
+    //         //         <span class="mark" data="75">2:48</span>
+    //         //     </div>
+    //         // </div>
+
+    //     //     <!-- CLOSE -->
+    //     //     <button class="btn-dna close" id="close">✕</button>
+
+    //     // </div>
+    //     const html = `<div class="player ttsoc-audio-control">
+
+    //                     <button class="ttsoc-audio-control-play btn-dna play">
+    //                         <i class="bi bi-play-fill"></i>
+    //                     </button>
+
+    //                     <div class="meta">
+    //                         <div class="time ttsoc-audio-control-timestamp">
+    //                             <span class="ttsoc-audio-control-timestamp-current-time">00:00</span> / 
+    //                             <span class="ttsoc-audio-control-timestamp-duration">00:00</span>
+    //                         </div>
+    //                     </div>
+
+    //                     <div class="seek">
+    //                         <div class="track-seek">
+    //                             <div class="fill"></div>
+    //                         </div>
+
+    //                         <input type="range" class="ttsoc-audio-control-progressbar seek-input" min="0" max="100" value="0">
+    //                     </div>
+
+    //                     <button class="btn-dna close ttsoc-audio-control-close">
+    //                         <i class="bi bi-x-lg"></i>
+    //                     </button>
+    //                 </div>`;
+
+    //     $(document).find(placeholder).html(html);
+    // },
 
     /**
      * loads the offscreen dom where the audio is played
@@ -78,6 +142,14 @@ const AudioPlayback = {
             from: "audioPlayback",
             action: "seek",
             time
+        });
+    },
+
+    setPlaybackSpeed(speed) {
+        chrome.runtime.sendMessage({
+            from: "audioPlayback",
+            action: "speed",
+            speed
         });
     },
 

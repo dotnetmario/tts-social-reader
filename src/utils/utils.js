@@ -52,6 +52,48 @@ const Utils = {
     },
 
     /**
+     * split text into two parts, without spliting words in the middle
+     * 
+     * @param {string} text
+     * @returns {object}
+     */
+    splitText(text) {
+        if (typeof text !== 'string') {
+            text = text.toString();
+        }
+
+        const index = text.indexOf(" ", Defines.TEXT_MAX_LENGTH);
+
+        const firstPart = index !== -1
+            ? text.substring(0, index)
+            : text;
+
+        const secondPart = index !== -1
+            ? text.substring(index + 1)
+            : "";
+
+        return { firstPart, secondPart };
+    },
+
+    /**
+     * add breakline after a dot '.'
+     * 
+     * @param {string} text
+     * @returns {string} 
+     */
+    breaklineText(text, breaklinesCount = 2) {
+        if (typeof text !== 'string') {
+            text = text.toString();
+        }
+        let breaklines = '';
+        for (let i = 0; i < breaklinesCount; i++) {
+            breaklines += '<br>';
+        }
+
+        return text.replaceAll('.', '.' + breaklines);
+    },
+
+    /**
      * encodes text to be stored in data attributes of html elements
      * eg: "
      * @param {string} text 
@@ -258,6 +300,10 @@ const Utils = {
             return;
         }
 
+        // site is supported
+        // display the content contrils
+        View.displayMainContentControls();
+
         const siteModule = await this.getSiteModule(tab.url);
         // get site content from local storage
         const siteContent = await Storage.getContent(tab.url);
@@ -345,6 +391,17 @@ const Utils = {
      */
     async saveSettings(key, value) {
         await Storage.appendContent('settings', key, value);
+    },
+
+    /**
+     * get setting value
+     * @param {string} key
+     * @returns {any} value
+     */
+    async getSetting(key) {
+        const settings = await Storage.getContent('settings');
+
+        return settings[key] ?? undefined;
     },
 
     /**

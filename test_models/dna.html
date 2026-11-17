@@ -1,0 +1,2871 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNA</title>
+    <!-- Link to Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Ensure cards are displayed nicely */
+        .container {
+            margin-top: 30px;
+        }
+
+        /* Custom styles for demonstration */
+        .card-custom {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* General hover effect for all cards */
+        .card-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+
+        /* Base Pill Button DNA */
+        .btn-pill {
+            border: none;
+            border-radius: 999px;
+            padding: 12px 24px;
+            font-weight: 600;
+            transition: all .25s ease;
+            min-width: 150px;
+        }
+
+        .btn-pill:hover {
+            transform: translateY(-3px);
+        }
+
+        /* =========================
+   BLUE
+========================= */
+
+        .blue-100 {
+            background: #e8f1ff;
+            color: #0d6efd;
+            box-shadow: 0 4px 10px rgba(13, 110, 253, .12);
+        }
+
+        .blue-100:hover {
+            background: #dbeafe;
+            /* slightly darker */
+            box-shadow: 0 8px 16px rgba(13, 110, 253, .18);
+        }
+
+        .blue-300 {
+            background: #9ec5fe;
+            color: #084298;
+            box-shadow: 0 4px 10px rgba(13, 110, 253, .16);
+        }
+
+        .blue-300:hover {
+            background: #86b6fe;
+            box-shadow: 0 8px 16px rgba(13, 110, 253, .22);
+        }
+
+        .blue-500 {
+            background: #0d6efd;
+            color: white;
+            box-shadow: 0 4px 12px rgba(13, 110, 253, .25);
+        }
+
+        .blue-500:hover {
+            color: white;
+            background: #0b5ed7;
+            /* darker brand blue */
+            box-shadow: 0 10px 20px rgba(13, 110, 253, .30);
+        }
+
+        /* =========================
+   GREEN
+========================= */
+
+        .green-100 {
+            background: #e8f8ef;
+            color: #198754;
+            box-shadow: 0 4px 10px rgba(25, 135, 84, .12);
+        }
+
+        .green-100:hover {
+            background: #d7f3e3;
+            box-shadow: 0 8px 16px rgba(25, 135, 84, .18);
+        }
+
+        .green-300 {
+            background: #9fd5b3;
+            color: #0f5132;
+            box-shadow: 0 4px 10px rgba(25, 135, 84, .16);
+        }
+
+        .green-300:hover {
+            background: #8ccca5;
+            box-shadow: 0 8px 16px rgba(25, 135, 84, .22);
+        }
+
+        .green-500 {
+            background: #198754;
+            color: white;
+            box-shadow: 0 4px 12px rgba(25, 135, 84, .25);
+        }
+
+        .green-500:hover {
+            color: white;
+            background: #157347;
+            box-shadow: 0 10px 20px rgba(25, 135, 84, .30);
+        }
+
+        /* =========================
+   PURPLE
+========================= */
+
+        .purple-100 {
+            background: #f1e8ff;
+            color: #6f42c1;
+            box-shadow: 0 4px 10px rgba(111, 66, 193, .12);
+        }
+
+        .purple-100:hover {
+            background: #e6dbff;
+            box-shadow: 0 8px 16px rgba(111, 66, 193, .18);
+        }
+
+        .purple-300 {
+            background: #c29ffa;
+            color: #432874;
+            box-shadow: 0 4px 10px rgba(111, 66, 193, .16);
+        }
+
+        .purple-300:hover {
+            background: #b58cf8;
+            box-shadow: 0 8px 16px rgba(111, 66, 193, .22);
+        }
+
+        .purple-500 {
+            background: #6f42c1;
+            color: white;
+            box-shadow: 0 4px 12px rgba(111, 66, 193, .25);
+        }
+
+        .purple-500:hover {
+            color: white;
+            background: #5e37a6;
+            box-shadow: 0 10px 20px rgba(111, 66, 193, .30);
+        }
+
+        /* =========================
+   RED
+========================= */
+
+        .red-100 {
+            background: #fdeeee;
+            color: #dc3545;
+            box-shadow: 0 4px 10px rgba(220, 53, 69, .12);
+        }
+
+        .red-100:hover {
+            background: #fbe3e3;
+            box-shadow: 0 8px 16px rgba(220, 53, 69, .18);
+        }
+
+        .red-300 {
+            background: #f1aeb5;
+            color: #842029;
+            box-shadow: 0 4px 10px rgba(220, 53, 69, .16);
+        }
+
+        .red-300:hover {
+            background: #ee9aa3;
+            box-shadow: 0 8px 16px rgba(220, 53, 69, .22);
+        }
+
+        .red-500 {
+            background: #dc3545;
+            color: white;
+            box-shadow: 0 4px 12px rgba(220, 53, 69, .25);
+        }
+
+        .red-500:hover {
+            color: white;
+            background: #bb2d3b;
+            box-shadow: 0 10px 20px rgba(220, 53, 69, .30);
+        }
+
+        /* =========================
+        BASE SEGMENTED NAV DNA
+        ========================= */
+        .nav-segmented {
+            display: flex;
+            gap: 6px;
+            padding: 8px;
+            border-radius: 14px;
+            background: #e8f1ff;
+        }
+
+        /* base tab */
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px 14px;
+            border-radius: 999px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #0d6efd;
+            transition: all .25s ease;
+        }
+
+        /* active state always exists */
+        .tab.active {
+            background: white;
+            color: #0d6efd;
+        }
+
+        /* =========================
+   VARIANT 3 — SHADOW ONLY (NO HOVER SHIFT)
+========================= */
+        .nav-shadow-only {
+            box-shadow: 0 6px 14px rgba(0, 0, 0, .08);
+        }
+
+        .nav-shadow-only .tab {
+            background: transparent;
+        }
+
+        .nav-shadow-only .tab.active {
+            box-shadow: 0 4px 10px rgba(13, 110, 253, .15);
+        }
+
+        /* no hover interaction */
+        .nav-shadow-only .tab:hover {
+            transform: none;
+        }
+
+        /* =========================
+   VARIANT 4 — FULL INTERACTION SYSTEM
+========================= */
+        .nav-full {
+            box-shadow: 0 6px 14px rgba(0, 0, 0, .08);
+        }
+
+        .nav-full .tab:hover {
+            background: rgba(13, 110, 253, .12);
+            transform: translateY(-2px);
+        }
+
+        .nav-full .tab.active {
+            box-shadow: 0 4px 10px rgba(13, 110, 253, .18);
+        }
+
+
+        /* =========================
+   SLIDER WRAP (INSET SYSTEM)
+========================= */
+        .slider-box {
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow:
+                inset 0 2px 6px rgba(0, 0, 0, .05),
+                0 4px 10px rgba(0, 0, 0, .08);
+            margin-bottom: 25px;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* input[type="range"] { */
+        #custom-slider {
+            width: 100%;
+            appearance: none;
+            background: transparent;
+            outline: none;
+        }
+
+        /* =========================
+   TRACK (shared inset DNA)
+========================= */
+        .track::-webkit-slider-runnable-track {
+            height: 14px;
+            background: #e8f1ff;
+            border-radius: 999px;
+            box-shadow: inset 0 4px 8px rgba(0, 0, 0, .10);
+        }
+
+        /* ======================================================
+   GLOBAL THUMB MOTION SYSTEM (IMPORTANT)
+   This is where the "smooth feel" is defined
+====================================================== */
+
+        .track::-webkit-slider-thumb {
+            transition:
+                transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1),
+                filter 320ms cubic-bezier(0.22, 1, 0.36, 1);
+            transform-origin: center;
+        }
+
+        /* subtle "settle back" feel when not hovered */
+        .track::-webkit-slider-thumb:not(:hover) {
+            transition-duration: 420ms;
+        }
+
+        /* =========================
+   1. CLASSIC BLUE
+========================= */
+
+        .thumb-classic::-webkit-slider-thumb {
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #0d6efd;
+            margin-top: -4px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, .18);
+        }
+
+        .thumb-classic::-webkit-slider-thumb:hover {
+            transform: scale(1.28);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, .22);
+        }
+
+
+
+        /* ///////////////////////////////////////////////////////// */
+        /* ///////////////////////////////////////////////////////// */
+        /* ///////////////////////////////////////////////////////// */
+        /* ///////////////////////////////////////////////////////// */
+        /* ///////////////////////////////////////////////////////// */
+        /* ///////////////////////////////////////////////////////// */
+
+        .player {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            max-width: 520px;
+            /* KEY FIX: compact width */
+            padding: 12px 14px;
+
+            border-radius: 16px;
+            background: white;
+            box-shadow:
+                inset 0 2px 6px rgba(0, 0, 0, .05),
+                0 8px 16px rgba(0, 0, 0, .10);
+        }
+
+        .btn-dna {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .btn-dna:hover {
+            transform: scale(1.12);
+        }
+
+        .play {
+            background: #0d6efd;
+            color: white;
+        }
+
+        .close {
+            background: #ff5c7a;
+            color: white;
+        }
+
+        .meta {
+            display: flex;
+            flex-direction: column;
+            min-width: 120px;
+        }
+
+        .title {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .time {
+            font-size: 11px;
+            color: #6c757d;
+        }
+
+        .seek {
+            flex: 1;
+            position: relative;
+        }
+
+        /* track container */
+        .track-seek {
+            height: 10px;
+            border-radius: 999px;
+            background: #e8f1ff;
+            box-shadow: inset 0 3px 6px rgba(0, 0, 0, .10);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* progress fill */
+        .fill {
+            position: absolute;
+            height: 100%;
+            width: 35%;
+            background: linear-gradient(90deg, #0d6efd, #4dabf7);
+            border-radius: 999px;
+        }
+
+
+
+        /* native slider overlay */
+        #seek {
+            position: absolute;
+            top: -6px;
+            left: 0;
+            width: 100%;
+            height: 22px;
+
+            appearance: none;
+            background: transparent;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        /* thumb */
+        #seek::-webkit-slider-thumb {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #0d6efd;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, .18);
+
+            transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        #seek::-webkit-slider-thumb:hover {
+            transform: scale(1.35);
+        }
+
+
+        .mini-marks {
+            display: flex;
+            gap: 6px;
+            margin-top: 6px;
+            font-size: 10px;
+            color: #6c757d;
+        }
+
+        .mark {
+            cursor: pointer;
+            padding: 2px 5px;
+            border-radius: 6px;
+            transition: all 200ms ease;
+            white-space: nowrap;
+        }
+
+        .mark:hover {
+            background: #eef5ff;
+            color: #0d6efd;
+        }
+
+        /* //////////////////////////////// INPUTS /////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////// */
+
+        input,
+        textarea {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            background: transparent;
+        }
+
+        .field:hover {
+            transform: translateY(-2px);
+        }
+
+        .field {
+            position: relative;
+            border-radius: 14px;
+            background: #eef5ff;
+            box-shadow: inset 0 4px 10px rgba(0, 0, 0, .08);
+            transition: transform 250ms ease, box-shadow 250ms ease;
+        }
+
+        .field:focus-within {
+            box-shadow:
+                inset 0 4px 10px rgba(0, 0, 0, .08),
+                0 0 0 3px rgba(13, 110, 253, .15);
+        }
+
+        .style-1 {
+            padding: 10px 12px;
+        }
+
+        textarea {
+            resize: none;
+            min-height: 90px;
+            padding: 12px 14px;
+        }
+
+        /* textarea variant */
+        .style-6 {
+            background: #eef5ff;
+            box-shadow:
+                inset 0 5px 12px rgba(0, 0, 0, .10);
+        }
+
+        /* //////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////// */
+
+
+        /* Hide overflow */
+        .marquee-wrapper {
+            overflow: hidden;
+            position: relative;
+
+            /* Fade effect on edges */
+            mask-image: linear-gradient(to right,
+                    transparent,
+                    black 5%,
+                    black 95%,
+                    transparent);
+        }
+
+        /* Moving track */
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: scroll 30s linear infinite;
+        }
+
+        /* Pause animation when hovering */
+        /* .marquee-wrapper:hover .marquee-track {
+            animation-play-state: paused;
+        } */
+
+        /* Brand item DNA */
+        .brand-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            background: white;
+            border-radius: 15px;
+            padding: 16px 22px;
+            margin-right: 16px;
+
+            box-shadow: 0 4px 8px rgba(0, 0, 0, .08);
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+
+            flex-shrink: 0;
+        }
+
+        .brand-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, .12);
+        }
+
+        /* Icon */
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 12px;
+
+            background: #eef5ff;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #0d6efd;
+            font-weight: 700;
+        }
+
+        /* Name */
+        .brand-name {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        /* Infinite scrolling */
+        @keyframes scroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* //////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////// */
+
+        /* ==========================================
+   BASE CARD DNA
+========================================== */
+
+        .pricing-card {
+            background: white;
+            border-radius: 18px;
+            padding: 32px;
+
+            height: 100%;
+
+            display: flex;
+            flex-direction: column;
+
+            box-shadow:
+                0 4px 8px rgba(0, 0, 0, .08);
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 12px 24px rgba(0, 0, 0, .12);
+        }
+
+        /* ==========================================
+   FEATURED CARD
+========================================== */
+
+        .pricing-card.featured {
+            border: 2px solid rgba(13, 110, 253, .15);
+
+            box-shadow:
+                0 8px 18px rgba(13, 110, 253, .12);
+        }
+
+        /* ==========================================
+   BADGE
+========================================== */
+
+        .tier-badge {
+            display: inline-flex;
+
+            align-self: flex-start;
+
+            background: #eef5ff;
+            color: #0d6efd;
+
+            padding: 6px 12px;
+
+            border-radius: 999px;
+
+            font-size: .75rem;
+            font-weight: 600;
+
+            margin-bottom: 20px;
+        }
+
+        /* ==========================================
+   TITLES
+========================================== */
+
+        .tier-name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .tier-description {
+            color: #6c757d;
+            margin-bottom: 28px;
+        }
+
+        /* ==========================================
+   PRICE
+========================================== */
+
+        .price {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+
+            margin-bottom: 28px;
+        }
+
+        .price-amount {
+            font-size: 2.8rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .price-period {
+            color: #6c757d;
+        }
+
+        /* ==========================================
+   FEATURES
+========================================== */
+
+        .features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 32px;
+            flex-grow: 1;
+        }
+
+        .features li {
+            display: flex;
+            align-items: center;
+
+            padding: 12px 0;
+
+            border-bottom: 1px solid rgba(0, 0, 0, .05);
+        }
+
+        .features li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-icon {
+            width: 28px;
+            height: 28px;
+
+            margin-right: 12px;
+
+            border-radius: 8px;
+
+            background: #eef5ff;
+
+            color: #0d6efd;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: .9rem;
+            font-weight: 700;
+
+            flex-shrink: 0;
+        }
+
+        /* ==========================================
+   BUTTON DNA
+========================================== */
+
+        .btn-tier {
+            width: 100%;
+
+            border: none;
+
+            border-radius: 999px;
+
+            padding: 14px 24px;
+
+            font-weight: 600;
+
+            transition:
+                transform .3s ease,
+                box-shadow .3s ease,
+                background-color .3s ease;
+        }
+
+        /* Starter */
+
+        .btn-starter {
+            background: #eef5ff;
+            color: #0d6efd;
+        }
+
+        .btn-starter:hover {
+            background: #e0eeff;
+
+            transform: scale(1.02);
+        }
+
+        /* Pro */
+
+        .btn-pro {
+            background: #0d6efd;
+            color: white;
+        }
+
+        .btn-pro:hover {
+            background: #0b5ed7;
+
+            transform: scale(1.02);
+        }
+
+        /* Enterprise */
+
+        .btn-enterprise {
+            background: #343a40;
+            color: white;
+        }
+
+        .btn-enterprise:hover {
+            background: #212529;
+
+            transform: scale(1.02);
+        }
+
+        /* ==========================================
+   POPULAR LABEL
+========================================== */
+
+        .popular-label {
+            position: absolute;
+
+            top: 18px;
+            right: 18px;
+
+            background: #0d6efd;
+            color: white;
+
+            padding: 6px 12px;
+
+            border-radius: 999px;
+
+            font-size: .75rem;
+            font-weight: 600;
+        }
+
+        /* ////////////////////////////////////////////////////////////// */
+        /* ////////////////////////////////////////////////////////////// */
+        /* ////////////////////////////////////////////////////////////// */
+        /* ////////////////////////////////////////////////////////////// */
+        /* ////////////////////////////////////////////////////////////// */
+
+
+        /* ==========================================
+   🎨 DESIGN TOKENS (EASY THEME CONTROL)
+========================================== */
+        /* :root {
+            --primary: #0d6efd;
+            --secondary: #6f22a1;
+
+
+            --hero-gradient: linear-gradient(45deg,
+                    var(--primary),
+                    var(--secondary));
+
+            --soft-bg: #f5f7fb;
+        } */
+
+        :root {
+            --primary: #5282c9;
+            --secondary: #6baa58;
+
+            --gradient-angle: 60deg;
+            --primary-stop: 10%;
+            --secondary-stop: 100%;
+
+            --hero-gradient: linear-gradient(var(--gradient-angle),
+                    var(--primary) 0%,
+                    var(--primary) var(--primary-stop),
+                    var(--secondary) var(--secondary-stop));
+        }
+
+        /* ==========================================
+   BASE
+========================================== */
+        /* body {
+            margin: 0;
+            font-family: system-ui, sans-serif;
+            background: var(--soft-bg);
+        } */
+
+        /* ==========================================
+   HERO WRAPPER
+========================================== */
+        .hero {
+            width: 100%;
+            min-height: 90vh;
+
+            display: flex;
+            align-items: center;
+
+            /* gradient background */
+            background: var(--hero-gradient);
+
+            position: relative;
+            overflow: hidden;
+
+            box-shadow:
+                inset 0 -1px 0 rgba(255, 255, 255, .15),
+                0 20px 40px rgba(0, 0, 0, .12);
+        }
+
+        /* soft glow blob */
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 520px;
+            height: 520px;
+
+            background: rgba(255, 255, 255, .15);
+            border-radius: 50%;
+            filter: blur(70px);
+        }
+
+        /* ==========================================
+   CONTENT LAYOUT
+========================================== */
+        .hero-inner {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 80px 8%;
+            gap: 60px;
+
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ==========================================
+   LEFT CONTENT
+========================================== */
+        .hero-text {
+            max-width: 560px;
+            color: white;
+        }
+
+        .badge-soft {
+            display: inline-flex;
+            background: rgba(255, 255, 255, .18);
+            color: white;
+
+            padding: 6px 14px;
+            border-radius: 999px;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            backdrop-filter: blur(10px);
+
+            margin-bottom: 18px;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 18px;
+        }
+
+        .hero-desc {
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, .85);
+            margin-bottom: 28px;
+        }
+
+        /* ==========================================
+   BUTTONS (ADAPTED FOR DARK BACKGROUND)
+========================================== */
+        .cta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-dna2 {
+            border: none;
+            border-radius: 999px;
+
+            padding: 12px 20px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition:
+                transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+                background-color 300ms ease;
+        }
+
+        /* primary button uses theme variable */
+        .btn-primary-dna {
+            background: white;
+            color: var(--primary);
+
+            box-shadow: 0 10px 20px rgba(0, 0, 0, .15);
+        }
+
+        .btn-primary-dna:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, .92);
+        }
+
+        /* secondary glass button */
+        .btn-soft {
+            background: rgba(255, 255, 255, .18);
+            color: white;
+
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-soft:hover {
+            background: rgba(255, 255, 255, .25);
+            transform: scale(1.05);
+        }
+
+        /* ==========================================
+   FEATURES PANEL (RIGHT SIDE)
+========================================== */
+        .features {
+            width: 380px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, .12);
+            border-radius: 16px;
+
+            padding: 16px 18px;
+
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+
+            /* backdrop-filter: blur(12px); */
+
+            box-shadow:
+                0 10px 20px rgba(0, 0, 0, .12);
+
+            transition: .3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, .18);
+        }
+
+        .feature-icon {
+            width: 34px;
+            height: 34px;
+
+            border-radius: 10px;
+
+            background: rgba(255, 255, 255, .25);
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: 700;
+        }
+
+        .feature-text h6 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 14px;
+            color: white;
+        }
+
+        .feature-text p {
+            margin: 2px 0 0;
+            font-size: 12px;
+            color: rgba(255, 255, 255, .75);
+        }
+
+        /* ==========================================
+   RESPONSIVE
+========================================== */
+        @media (max-width: 992px) {
+            .hero-inner {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 60px 6%;
+            }
+
+            .hero-title {
+                font-size: 2.4rem;
+            }
+
+            .features {
+                width: 100%;
+            }
+        }
+
+        /* //////////////////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////////////////// */
+
+
+        /* ==========================================
+   TESTIMONIAL CARD DNA
+========================================== */
+        .testimonial-card {
+            background: white;
+
+            border-radius: 16px;
+
+            padding: 18px 20px;
+
+            margin-right: 16px;
+
+            width: 320px;
+
+            flex-shrink: 0;
+
+            box-shadow:
+                inset 0 2px 6px rgba(0, 0, 0, .05),
+                0 6px 14px rgba(0, 0, 0, .08);
+
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow:
+                0 12px 24px rgba(0, 0, 0, .12);
+        }
+
+        /* ==========================================
+   HEADER (AVATAR + USER INFO)
+========================================== */
+        .user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+
+            border-radius: 50%;
+
+            background: #eef5ff;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: 700;
+            color: #0d6efd;
+        }
+
+        .user-info h6 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .user-info span {
+            font-size: 12px;
+            color: #6c757d;
+        }
+
+        /* ==========================================
+   TEXT
+========================================== */
+        .message {
+            font-size: 13px;
+            color: #495057;
+            line-height: 1.5;
+        }
+
+        .stars {
+            color: #ffc107;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        /* //////////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////////// */
+
+
+        @media (max-width: 768px) {
+
+            .navbar-dna {
+                padding: 20px 6%;
+            }
+
+            .brand-name2 {
+                display: none;
+            }
+
+            .hero-inner {
+                padding: 120px 6% 60px;
+            }
+        }
+
+        /* ==========================================
+   NAVBAR
+========================================== */
+
+        .navbar-dna {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+
+            padding: 24px 8%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            z-index: 100;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 14px;
+
+            background: rgba(255, 255, 255, .15);
+            backdrop-filter: blur(12px);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+            font-weight: 700;
+
+            box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
+
+            transition: all 0.3s ease;
+        }
+
+        .brand-logo:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, .22);
+        }
+
+        .brand-name2 {
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        /* ==========================================
+   DROPDOWN
+========================================== */
+
+        .dropdown {
+            position: relative;
+        }
+
+        .menu-button {
+            border: none;
+
+            padding: 12px 18px;
+
+            border-radius: 999px;
+
+            background: rgba(255, 255, 255, .15);
+            backdrop-filter: blur(12px);
+
+            color: white;
+            font-weight: 600;
+
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+        }
+
+        .menu-button:hover {
+            background: rgba(255, 255, 255, .22);
+            transform: scale(1.03);
+        }
+
+        .menu-icon {
+            transition: transform .3s ease;
+        }
+
+        .dropdown:hover .menu-icon {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu-custom {
+            position: absolute;
+
+            top: calc(100% + 12px);
+            right: 0;
+
+            min-width: 220px;
+
+            padding: 8px;
+            margin: 0;
+
+            list-style: none;
+
+            border-radius: 18px;
+
+            background: rgba(255, 255, 255, .12);
+            backdrop-filter: blur(20px);
+
+            box-shadow: 0 12px 30px rgba(0, 0, 0, .12);
+
+            opacity: 0;
+            visibility: hidden;
+
+            transform: translateY(10px);
+
+            transition: all .25s ease;
+        }
+
+        .dropdown:hover .dropdown-menu-custom {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu-custom a {
+            display: block;
+
+            padding: 12px 14px;
+
+            border-radius: 12px;
+
+            color: white;
+            text-decoration: none;
+
+            /* transition: background .25s ease; */
+            transition:
+                transform 250ms cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 250ms ease;
+
+            transform-origin: center;
+
+        }
+
+        .dropdown-menu-custom a:hover {
+            /* background: rgba(255, 255, 255, .12);
+            transform: scale(1.04); */
+            transform: translateX(4px) scale(1.02);
+        }
+
+
+        .dropdown-menu-custom a::before {
+            content: "";
+
+            position: absolute;
+            left: 0;
+            top: 50%;
+
+            width: 4px;
+            height: 0;
+
+            border-radius: 999px;
+
+            background: rgba(255, 255, 255, .8);
+
+            transform: translateY(-50%);
+
+            transition: height 250ms ease;
+        }
+
+        .dropdown-menu-custom a:hover::before {
+            height: 50%;
+        }
+
+
+
+        /* ///////////////////////////////////////////////////////// */
+        /* ///////////////////////////////////////////////////////// */
+        /* ///////////////////////////////////////////////////////// */
+        /* ///////////////////////////////////////////////////////// */
+
+
+        /* ==========================================
+   FOOTER (DARK DNA CLOSING LAYER)
+========================================== */
+
+        .footer-dna {
+            background: linear-gradient(135deg, #0b1220, #0f1a2e);
+
+            color: white;
+
+            padding: 70px 8% 30px;
+
+            position: relative;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+
+            gap: 60px;
+        }
+
+        .footer-brand {
+            max-width: 320px;
+        }
+
+        .footer-logo {
+            width: 44px;
+            height: 44px;
+
+            border-radius: 14px;
+
+            background: rgba(255, 255, 255, 0.08);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 12px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 60px;
+        }
+
+        /* .footer-links a {
+            display: block;
+
+            color: rgba(255, 255, 255, 0.6);
+
+            text-decoration: none;
+
+            margin: 6px 0;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(4px);
+        } */
+        .footer-links a {
+            display: block;
+
+            color: rgba(255, 255, 255, 0.6);
+
+            text-decoration: none;
+
+            margin: 6px 0;
+
+            transition:
+                color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+
+            will-change: transform;
+        }
+
+        .footer-links a:hover {
+            color: rgba(255, 255, 255, 0.95);
+
+            transform: translateX(4px);
+        }
+
+        .footer-links a {
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: "";
+
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+
+            width: 0%;
+            height: 1px;
+
+            background: rgba(255, 255, 255, 0.6);
+
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .footer-bottom {
+            margin-top: 40px;
+            padding-top: 20px;
+
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+            text-align: center;
+
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        @media (max-width: 992px) {
+
+            .footer-inner {
+                flex-direction: column;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                gap: 30px;
+            }
+        }
+
+
+
+        /* //////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////// */
+        /* ////////////////////////// COMMENT /////////////////////// */
+        /* //////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////// */
+        :root {
+            /* --primary: #0d6efd;
+            --secondary: #6f22a1; */
+
+            --text: #2f3742;
+            --muted: #8a94a3;
+            --line: #dbe5f3;
+
+            --ease: cubic-bezier(.22, 1, .36, 1);
+        }
+
+
+        /* .comments {
+            max-width: 850px;
+            margin: auto;
+        } */
+
+        .comment {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+
+            margin-bottom: 32px;
+        }
+
+        .avatar {
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+            font-weight: 700;
+
+            background: linear-gradient(135deg,
+                    var(--primary),
+                    var(--secondary));
+        }
+
+        .content {
+            flex: 1;
+        }
+
+        .meta2 {
+
+            display: flex;
+            gap: 10px;
+            align-items: center;
+
+            margin-bottom: 8px;
+        }
+
+        .author {
+            font-weight: 700;
+        }
+
+        .time {
+            font-size: .82rem;
+            color: var(--muted);
+        }
+
+        .message {
+
+            margin: 0;
+
+            color: #56606c;
+
+            line-height: 1.7;
+        }
+
+        /* =====================================
+   REPLIES TREE
+===================================== */
+
+        .replies {
+
+            position: relative;
+
+            margin-top: 18px;
+            margin-left: 22px;
+
+            padding-left: 28px;
+        }
+
+        /* Vertical line */
+
+        .replies::before {
+
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            top: 0;
+            bottom: 22px;
+            /* Ends at the last reply */
+
+            width: 2px;
+
+            background: var(--line);
+
+        }
+
+        /* Each reply */
+
+        .reply {
+
+            position: relative;
+
+            display: flex;
+            gap: 14px;
+
+            margin-bottom: 18px;
+        }
+
+        /* Horizontal connector */
+
+        .reply::before {
+
+            content: "";
+
+            position: absolute;
+
+            left: -28px;
+            top: 20px;
+
+            width: 18px;
+            height: 2px;
+
+            background: var(--line);
+
+        }
+
+        /* Last reply trims the vertical line */
+
+        .reply:last-child {
+            margin-bottom: 0;
+        }
+
+        .reply:last-child::after {
+
+            content: "";
+
+            position: absolute;
+
+            left: -28px;
+            top: 22px;
+            bottom: -18px;
+
+            width: 2px;
+
+            background: white;
+        }
+
+        /* Smaller avatars for replies */
+
+        .reply .avatar {
+
+            width: 36px;
+            height: 36px;
+
+            font-size: .8rem;
+        }
+
+        /* =====================================
+   HOVER
+===================================== */
+
+        .comment:hover>.avatar,
+        .reply:hover>.avatar {
+
+            transform: scale(1.08);
+
+            transition:
+                transform .35s var(--ease);
+
+        }
+
+        /* //////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////// */
+        /* ////////////////////////// COMMENT /////////////////////// */
+        /* //////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////// */
+
+
+        /* //////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////// */
+        /* ////////////////////////// ACCORDION /////////////////////// */
+        /* //////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////// */
+
+        .style4 .accordion-button {
+
+            background: white;
+
+            border-left: 5px solid transparent;
+
+            transition: .25s;
+
+        }
+
+        .style4 .accordion-button:not(.collapsed) {
+
+            border-left-color: var(--primary);
+
+        }
+
+        .style4 .accordion-body {
+
+            border-left: 2px solid rgba(13, 110, 253, .15);
+
+            margin-left: 18px;
+
+        }
+
+        .accordion {
+
+            --bs-accordion-border-width: 0;
+            --bs-accordion-bg: transparent;
+
+        }
+
+        .accordion-item {
+
+            border: none;
+            background: none;
+
+            margin-bottom: 12px;
+
+        }
+
+        .acc-header {
+
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            width: 100%;
+
+        }
+
+        .acc-title {
+
+            flex: 1;
+
+        }
+
+        .acc-title strong {
+
+            display: block;
+            color: var(--text);
+
+        }
+
+        .acc-title small {
+
+            color: var(--muted);
+
+        }
+
+        .form-check-input {
+
+            width: 22px;
+            height: 22px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            transition: .25s var(--ease);
+
+        }
+
+        .form-check-input:checked {
+
+            background-color: var(--primary);
+            border-color: var(--primary);
+
+        }
+
+        /* //////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////// */
+        /* ////////////////////////// ACCORDION /////////////////////// */
+        /* //////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////// */
+
+
+
+
+
+
+        /* //////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////// */
+        /* ////////////////////////// PARAGRAPH /////////////////////// */
+        /* //////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////// */
+        /* =====================================================
+           SHARED TYPOGRAPHY
+        ===================================================== */
+
+        .dna-heading {
+            margin-bottom: 8px;
+
+            font-size: 2rem;
+            font-weight: 750;
+            line-height: 1.2;
+
+            color: var(--text);
+        }
+
+        .dna-subheading {
+            margin-bottom: 18px;
+
+            font-size: 1rem;
+            font-weight: 500;
+
+            color: var(--muted);
+        }
+
+        .dna-text {
+            color: var(--light-text);
+
+            font-size: 1rem;
+            line-height: 1.8;
+
+            margin-bottom: 0;
+        }
+
+
+        /* =====================================================
+           READ MORE
+        ===================================================== */
+
+        .extra-text {
+            display: grid;
+
+            grid-template-rows: 0fr;
+
+            opacity: 0;
+
+            transition:
+                grid-template-rows .45s var(--ease),
+                opacity .3s ease,
+                margin-top .45s var(--ease);
+        }
+
+        .extra-text-inner {
+            overflow: hidden;
+        }
+
+        .extra-text.show {
+            grid-template-rows: 1fr;
+
+            opacity: 1;
+
+            margin-top: 18px;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            margin-top: 18px;
+
+            padding: 8px 15px;
+
+            border: none;
+            border-radius: 999px;
+
+            background: rgba(13, 110, 253, .08);
+
+            color: var(--primary);
+
+            font-size: .9rem;
+            font-weight: 600;
+
+            transition:
+                transform .3s var(--ease),
+                background .3s ease,
+                color .3s ease;
+        }
+
+        .read-more:hover {
+            transform: scale(1.04);
+
+            background: rgba(13, 110, 253, .14);
+
+            color: var(--primary);
+        }
+
+        .read-more-icon {
+            font-size: 1rem;
+
+            transition:
+                transform .35s var(--ease);
+        }
+
+        .read-more.expanded .read-more-icon {
+            transform: rotate(180deg);
+        }
+
+
+        /* =====================================================
+           1. MINIMAL PARAGRAPH
+        ===================================================== */
+
+        .paragraph-minimal {
+            padding-left: 2px;
+        }
+
+        .paragraph-minimal .dna-heading {
+            font-size: 2rem;
+        }
+
+        /* //////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////// */
+        /* ////////////////////////// PARAGRAPH /////////////////////// */
+        /* //////////////////////////////////////////////////////////// */
+        /* //////////////////////////////////////////////////////////// */
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar-dna">
+
+        <div class="navbar-brand">
+
+            <div class="brand-logo">
+                EV
+            </div>
+
+            <div class="brand-name2">
+                EchoVocal
+            </div>
+
+        </div>
+
+        <div class="dropdown">
+
+            <button class="menu-button">
+                Menu
+                <!-- <span class="menu-icon">⌄</span> -->
+            </button>
+
+            <ul class="dropdown-menu-custom">
+                <li><a href="#">Features</a></li>
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">Testimonials</a></li>
+                <li><a href="#">Documentation</a></li>
+            </ul>
+
+        </div>
+
+    </nav>
+
+    <section class="hero">
+
+        <div class="hero-inner">
+
+            <!-- LEFT -->
+            <div class="hero-text">
+
+                <span class="badge-soft">New Release</span>
+
+                <h1 class="hero-title">
+                    Build Better Interfaces<br>
+                    With a Unified Design System
+                </h1>
+
+                <p class="hero-desc">
+                    A modern UI DNA system powered by consistent components, soft elevation,
+                    and scalable design tokens.
+                </p>
+
+                <div class="cta">
+                    <button class="btn-dna2 btn-primary-dna">
+                        Get Started
+                    </button>
+
+                    <button class="btn-dna2 btn-soft">
+                        View Docs
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- RIGHT FEATURES -->
+            <div class="features">
+
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-text">
+                        <h6>Fast Performance</h6>
+                        <p>Optimized rendering pipeline</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">🎨</div>
+                    <div class="feature-text">
+                        <h6>Design Consistency</h6>
+                        <p>Unified visual system</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">🧩</div>
+                    <div class="feature-text">
+                        <h6>Modular Components</h6>
+                        <p>Reusable UI blocks</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-text">
+                        <h6>Secure Architecture</h6>
+                        <p>Built with best practices</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <div class="container">
+        <h1 class="text-center mb-4">Bootstrap Card Style Examples</h1>
+
+        <!-- Card Example 1: Rounded Corners & Subtle Shadow -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card card-custom h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Card Style 1: Subtle Rounding</h5>
+                        <p class="card-text">This card features a moderate border-radius and a soft shadow. Hover effect
+                            lifts the card slightly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="section-title">Blue</div>
+        <div class="grid">
+            <button class="btn btn-pill blue-100">Blue 100</button>
+            <button class="btn btn-pill blue-300">Blue 300</button>
+            <button class="btn btn-pill blue-500">Blue 500</button>
+        </div>
+
+        <div class="section-title">Green</div>
+        <div class="grid">
+            <button class="btn btn-pill green-100">Green 100</button>
+            <button class="btn btn-pill green-300">Green 300</button>
+            <button class="btn btn-pill green-500">Green 500</button>
+        </div>
+
+        <div class="section-title">Purple</div>
+        <div class="grid">
+            <button class="btn btn-pill purple-100">Purple 100</button>
+            <button class="btn btn-pill purple-300">Purple 300</button>
+            <button class="btn btn-pill purple-500">Purple 500</button>
+        </div>
+
+        <div class="section-title">Red</div>
+        <div class="grid">
+            <button class="btn btn-pill red-100">Red 100</button>
+            <button class="btn btn-pill red-300">Red 300</button>
+            <button class="btn btn-pill red-500">Red 500</button>
+        </div>
+
+
+        <p class="mt-5">Navbars</p>
+        <!-- VARIANT 3 -->
+        <div class="section">
+            <div class="title">3. Shadow Only (No Hover Movement)</div>
+            <nav class="nav-segmented nav-shadow-only">
+                <a class="tab active" href="#">Overview</a>
+                <a class="tab" href="#">Analytics</a>
+                <a class="tab" href="#">Reports</a>
+            </nav>
+        </div>
+
+        <!-- VARIANT 4 -->
+        <div class="section">
+            <div class="title">4. Full Interaction System</div>
+            <nav class="nav-segmented nav-full">
+                <a class="tab active- green-100" href="#">Overview</a>
+                <a class="tab" href="#">Analytics</a>
+                <a class="tab" href="#">Reports</a>
+            </nav>
+        </div>
+
+        <p class="mt-5">Slider</p>
+
+        <!-- <div class="card card-custom">
+            <label>Classic Blue Thumb</label>
+            <input type="range" class="track thumb-classic" min="0" max="100" value="40">
+        </div> -->
+
+        <div class="slider-box">
+            <label>Classic Blue Thumb</label>
+            <input type="range" id="custom-slider" class="track thumb-classic" min="0" max="100" value="40">
+        </div>
+
+
+        <p class="mt-5">Player</p>
+
+        <div class="player">
+
+            <!-- PLAY -->
+            <button class="btn-dna play" id="play">▶</button>
+
+            <!-- META -->
+            <div class="meta">
+                <div class="title">Focus Audio</div>
+                <div class="time" id="time">1:12 / 3:45</div>
+            </div>
+
+            <!-- SEEK -->
+            <div class="seek">
+                <div class="track-seek">
+                    <div class="fill" id="fill"></div>
+                </div>
+
+                <input type="range" id="seek" min="0" max="100" value="35">
+
+                <div class="mini-marks">
+                    <span class="mark" data="0">0:00</span>
+                    <span class="mark" data="25">0:56</span>
+                    <span class="mark" data="50">1:52</span>
+                    <span class="mark" data="75">2:48</span>
+                </div>
+            </div>
+
+            <!-- CLOSE -->
+            <button class="btn-dna close" id="close">✕</button>
+
+        </div>
+
+        <p class="mt-5">Inputs</p>
+
+        <div class="card-custom">
+            <label>Classic Input</label>
+            <div class="field style-1">
+                <input type="text" placeholder="Enter your name">
+            </div>
+            <!-- </div> -->
+
+            <!-- <div class="card-custom"> -->
+            <label>Textarea Control</label>
+            <div class="field style-6">
+                <textarea placeholder="Write something..."></textarea>
+            </div>
+        </div>
+
+
+
+
+        <div class="card-custom- mt-5">
+            <div class="marquee-wrapper p-5">
+
+                <div class="marquee-track">
+
+                    <!-- Original items -->
+
+                    <div class="brand-item">
+                        <div class="brand-icon">G</div>
+                        <div class="brand-name">Google</div>
+                    </div>
+
+                    <div class="brand-item">
+                        <div class="brand-icon">S</div>
+                        <div class="brand-name">Stripe</div>
+                    </div>
+
+                    <div class="brand-item">
+                        <div class="brand-icon">N</div>
+                        <div class="brand-name">Notion</div>
+                    </div>
+
+                    <div class="brand-item">
+                        <div class="brand-icon">F</div>
+                        <div class="brand-name">Figma</div>
+                    </div>
+
+                    <div class="brand-item">
+                        <div class="brand-icon">GH</div>
+                        <div class="brand-name">GitHub</div>
+                    </div>
+
+                    <div class="brand-item">
+                        <div class="brand-icon">D</div>
+                        <div class="brand-name">Dropbox</div>
+                    </div>
+
+                    <!-- Duplicate items for seamless loop -->
+
+                    <div class="brand-item">
+                        <div class="brand-icon">G</div>
+                        <div class="brand-name">Google</div>
+                    </div>
+
+                    <div class="brand-item">
+                        <div class="brand-icon">S</div>
+                        <div class="brand-name">Stripe</div>
+                    </div>
+
+                    <div class="brand-item">
+                        <div class="brand-icon">N</div>
+                        <div class="brand-name">Notion</div>
+                    </div>
+
+                    <div class="brand-item">
+                        <div class="brand-icon">F</div>
+                        <div class="brand-name">Figma</div>
+                    </div>
+
+                    <div class="brand-item">
+                        <div class="brand-icon">GH</div>
+                        <div class="brand-name">GitHub</div>
+                    </div>
+
+                    <div class="brand-item">
+                        <div class="brand-icon">D</div>
+                        <div class="brand-name">Dropbox</div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <div class="row g-4">
+
+            <!-- STARTER -->
+
+            <div class="col-lg-4">
+
+                <div class="pricing-card">
+
+                    <span class="tier-badge">
+                        Starter
+                    </span>
+
+                    <h3 class="tier-name">
+                        Basic
+                    </h3>
+
+                    <p class="tier-description">
+                        Great for individuals and small projects.
+                    </p>
+
+                    <div class="price">
+                        <span class="price-amount">
+                            $9
+                        </span>
+
+                        <span class="price-period">
+                            /month
+                        </span>
+                    </div>
+
+                    <ul class="features w-100">
+
+                        <li>
+                            <span class="feature-icon">✓</span>
+                            5 Projects
+                        </li>
+
+                        <li>
+                            <span class="feature-icon">✓</span>
+                            Basic Analytics
+                        </li>
+
+                        <li>
+                            <span class="feature-icon">✓</span>
+                            Email Support
+                        </li>
+
+                        <li>
+                            <span class="feature-icon">✓</span>
+                            1 Team Member
+                        </li>
+
+                    </ul>
+
+                    <button class="btn-tier btn-starter">
+                        Get Started
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- PRO -->
+
+            <div class="col-lg-4">
+
+                <div class="pricing-card featured position-relative">
+
+                    <span class="popular-label">
+                        Most Popular
+                    </span>
+
+                    <span class="tier-badge">
+                        Professional
+                    </span>
+
+                    <h3 class="tier-name">
+                        Pro
+                    </h3>
+
+                    <p class="tier-description">
+                        Perfect for growing teams and businesses.
+                    </p>
+
+                    <div class="price">
+                        <span class="price-amount">
+                            $29
+                        </span>
+
+                        <span class="price-period">
+                            /month
+                        </span>
+                    </div>
+
+                    <ul class="features w-100">
+
+                        <li>
+                            <span class="feature-icon">✓</span>
+                            Unlimited Projects
+                        </li>
+
+                        <li>
+                            <span class="feature-icon">✓</span>
+                            Advanced Analytics
+                        </li>
+
+                        <li>
+                            <span class="feature-icon">✓</span>
+                            Priority Support
+                        </li>
+
+                        <li>
+                            <span class="feature-icon">✓</span>
+                            10 Team Members
+                        </li>
+
+                        <li>
+                            <span class="feature-icon">✓</span>
+                            API Access
+                        </li>
+
+                    </ul>
+
+                    <button class="btn-tier btn-pro">
+                        Choose Pro
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- ENTERPRISE -->
+
+            <div class="col-lg-4">
+
+                <div class="pricing-card">
+
+                    <span class="tier-badge">
+                        Enterprise
+                    </span>
+
+                    <h3 class="tier-name">
+                        Enterprise
+                    </h3>
+
+                    <p class="tier-description">
+                        Advanced solutions for large organizations.
+                    </p>
+
+                    <div class="price">
+                        <span class="price-amount">
+                            Custom
+                        </span>
+                    </div>
+
+                    <ul class="features w-100">
+
+                        <li>
+                            <span class="feature-icon">✓</span>
+                            Unlimited Everything
+                        </li>
+
+                        <li>
+                            <span class="feature-icon">✓</span>
+                            Dedicated Account Manager
+                        </li>
+
+                        <li>
+                            <span class="feature-icon">✓</span>
+                            24/7 Premium Support
+                        </li>
+
+                        <li>
+                            <span class="feature-icon">✓</span>
+                            Custom Integrations
+                        </li>
+
+                        <li>
+                            <span class="feature-icon">✓</span>
+                            SLA & Security Reviews
+                        </li>
+
+                    </ul>
+
+                    <button class="btn-tier btn-enterprise">
+                        Contact Sales
+                    </button>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <section class="testimonials-section p-5">
+
+            <h3 class="section-title">
+                What our users say
+            </h3>
+
+            <div class="marquee-wrapper">
+
+                <div class="marquee-track">
+
+                    <!-- CARD 1 -->
+                    <div class="testimonial-card">
+
+                        <div class="user">
+                            <div class="avatar">A</div>
+                            <div class="user-info">
+                                <h6>Amina K.</h6>
+                                <span>Frontend Developer</span>
+                            </div>
+                        </div>
+
+                        <div class="message">
+                            This design system completely changed how I build interfaces.
+                            Everything feels consistent and fast.
+                        </div>
+
+                        <div class="stars">★★★★★</div>
+
+                    </div>
+
+                    <!-- CARD 2 -->
+                    <div class="testimonial-card">
+
+                        <div class="user">
+                            <div class="avatar">M</div>
+                            <div class="user-info">
+                                <h6>Mohamed R.</h6>
+                                <span>Product Designer</span>
+                            </div>
+                        </div>
+
+                        <div class="message">
+                            The soft elevation system makes UI design feel extremely polished
+                            without extra effort.
+                        </div>
+
+                        <div class="stars">★★★★★</div>
+
+                    </div>
+
+                    <!-- CARD 3 -->
+                    <div class="testimonial-card">
+
+                        <div class="user">
+                            <div class="avatar">S</div>
+                            <div class="user-info">
+                                <h6>Sara L.</h6>
+                                <span>Startup Founder</span>
+                            </div>
+                        </div>
+
+                        <div class="message">
+                            Our conversion rate improved after switching to this UI style.
+                        </div>
+
+                        <div class="stars">★★★★★</div>
+
+                    </div>
+
+                    <!-- CARD 4 -->
+                    <div class="testimonial-card">
+
+                        <div class="user">
+                            <div class="avatar">Y</div>
+                            <div class="user-info">
+                                <h6>Youssef B.</h6>
+                                <span>Full Stack Dev</span>
+                            </div>
+                        </div>
+
+                        <div class="message">
+                            The consistency across buttons, cards, and layouts is exactly what I needed.
+                        </div>
+
+                        <div class="stars">★★★★★</div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+
+
+
+
+
+        <!-- Comments -->
+        <div class="comments">
+            <div class="comment">
+                <div class="avatar">A</div>
+                <div class="content">
+
+                    <div class="meta2">
+                        <span class="author">Alice Johnson</span>
+                        <span class="time">2 hours ago</span>
+                    </div>
+
+                    <p class="message">
+                        I really like how clean this interface feels. The rounded elements and subtle animations make it
+                        pleasant without distracting from the content.
+                    </p>
+
+                    <div class="replies">
+                        <div class="reply">
+                            <div class="avatar">J</div>
+                            <div class="content">
+                                <div class="meta2">
+                                    <span class="author">James Lee</span>
+                                    <span class="time">1 hour ago</span>
+                                </div>
+                                <p class="message">
+                                    Agreed. The interaction design feels very polished.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="reply">
+                            <div class="avatar">S</div>
+                            <div class="content">
+                                <div class="meta2">
+                                    <span class="author">Sophia</span>
+                                    <span class="time">35 min ago</span>
+                                </div>
+                                <p class="message">
+                                    The spacing is excellent too. It keeps long discussions easy to read.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="reply">
+                            <div class="avatar">M</div>
+                            <div class="content">
+                                <div class="meta2">
+                                    <span class="author">Michael Carter</span>
+                                    <span class="time">12 min ago</span>
+                                </div>
+                                <p class="message">
+                                    This tree layout reminds me of GitHub discussions, but softer and more modern.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Comments -->
+
+
+
+
+
+
+
+
+        <!-- accordion -->
+        <div class="demo">
+            <h3>4. Accent Sidebar</h3>
+            <div class="accordion style4">
+                <div class="accordion-item">
+                    
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#s41">
+                            <div class="acc-header">
+                                <input class="form-check-input" type="checkbox">
+                                <div class="acc-title">
+                                    <strong>Permissions</strong>
+                                    <small>Roles and access control</small>
+                                </div>
+                            </div>
+                        </button>
+                    </h2>
+
+                    <div id="s41" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            Assign user roles and configure granular permissions.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <hr>
+
+
+        <!-- paragraphs -->
+        <article class="paragraph-minimal my-5">
+
+            <h2 class="dna-heading">
+                Listen to content your way
+            </h2>
+
+            <h3 class="dna-subheading">
+                Turn long articles into an audio experience
+            </h3>
+
+            <p class="dna-text">
+                EchoVocal transforms written content into natural-sounding
+                audio so you can keep up with articles while working,
+                commuting, or simply taking a break from your screen.
+            </p>
+
+            <div class="extra-text">
+
+                <div class="extra-text-inner">
+
+                    <p class="dna-text">
+                        Instead of keeping another collection of unread
+                        articles, you can listen to the content when it fits
+                        naturally into your day. The experience is designed
+                        to stay simple: find an article, generate the audio,
+                        and start listening.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <button class="read-more" type="button" data-target="extra-1">
+                <span class="read-more-label">
+                    Read More
+                </span>
+
+                <span class="read-more-icon">
+                    ↓
+                </span>
+            </button>
+        </article>
+        <!-- /paragraphs -->
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <footer class="footer-dna mt-5">
+
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+                <div class="footer-logo">EV</div>
+                <h4>EchoVocal</h4>
+                <p>Design system for modern interfaces.</p>
+            </div>
+
+            <div class="footer-links">
+                <div>
+                    <h6>Product</h6>
+                    <a href="#">Features</a>
+                    <a href="#">Pricing</a>
+                </div>
+
+                <div>
+                    <h6>Resources</h6>
+                    <a href="#">Docs</a>
+                    <a href="#">API</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 EchoVocal. All rights reserved.
+        </div>
+
+    </footer>
+
+
+
+
+
+
+
+
+
+
+    <!-- <div class="mt-5 mb-5"></div> -->
+    <!-- Link to Bootstrap JS (optional but good practice) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const seek = document.getElementById("seek");
+        const fill = document.getElementById("fill");
+        const time = document.getElementById("time");
+
+        function update(v) {
+            fill.style.width = v + "%";
+
+            let total = 225;
+            let sec = Math.floor((v / 100) * total);
+
+            let m = Math.floor(sec / 60);
+            let s = sec % 60;
+
+            time.textContent = `${m}:${s.toString().padStart(2, '0')} / 3:45`;
+        }
+
+        seek.addEventListener("input", e => update(e.target.value));
+
+        document.querySelectorAll(".mark").forEach(m => {
+            m.addEventListener("click", () => {
+                seek.value = m.dataset.data || m.getAttribute("data");
+                update(seek.value);
+            });
+        });
+
+        update(35);
+
+
+        document.querySelectorAll(".read-more").forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                const extraText =
+                    button.parentElement.querySelector(".extra-text");
+
+                const label =
+                    button.querySelector(".read-more-label");
+
+                const isExpanded =
+                    extraText.classList.toggle("show");
+
+                button.classList.toggle("expanded", isExpanded);
+
+                label.textContent =
+                    isExpanded ? "Read Less" : "Read More";
+
+            });
+
+        });
+    </script>
+</body>
+
+</html>
